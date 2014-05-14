@@ -3,6 +3,7 @@ package floor;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
 import character.Obj;
 
@@ -15,6 +16,7 @@ public class Floor {
 	Cell[][] layout;
 	BufferedReader br;
 	FileReader fileReader;
+	Random ranGen = new Random();
 	//Original declaration
 	//Cell layout[maxRow];
 
@@ -248,37 +250,37 @@ public class Floor {
 		do{
 			switch (chamID){
 				case 1:
-					row = rand() % 4 + 3;
-					column = rand() % 26 + 3;
+					row = ranGen.nextInt(4) + 3;
+					column = ranGen.nextInt(26) + 3;
 					break;
 				case 2:
-					column = rand() % 37 + 39;
+					column = ranGen.nextInt(37) + 39;
 					if (column >= 39 && column <= 60)
-						row = rand() % 4 + 3;
+						row = ranGen.nextInt(4) + 3;
 					else if (column == 61)
-						row = rand() % 10 + 3;
+						row = ranGen.nextInt(10) + 3;
 					else if (column >= 62 && column <= 69)
-						row = rand() % 8 + 5;
+						row = ranGen.nextInt(8) + 5;
 					else if (column >= 70 && column <= 72)
-						row = rand() % 7 + 6;
+						row = ranGen.nextInt(7) + 6;
 					else
-						row = rand() % 6 + 7;
+						row = ranGen.nextInt(6) + 7;
 					break;
 				case 3:
-					row = rand() % 3 + 10;
-					column = rand() % 12 + 38;
+					row = ranGen.nextInt(3) + 10;
+					column = ranGen.nextInt(12) + 38;
 					break;
 				case 4:
-					row = rand() % 7 + 15;
-					column = rand() % 21 + 4;
+					row = ranGen.nextInt(7) + 15;
+					column = ranGen.nextInt(21) + 4;
 					break;
 				case 5:
-					row = rand() % 6 + 16;
+					row = ranGen.nextInt(6) + 16;
 					if (row >= 16 && row <= 18){
-						column = rand() % 11 + 65;
+						column = ranGen.nextInt(11) + 65;
 					}
 					else
-						column = rand() % 39 + 37;
+						column = ranGen.nextInt(39) + 37;
 					break;
 			}
 			count++;
@@ -287,65 +289,66 @@ public class Floor {
 		}while(layout[row][column].getOnCell() != null);
 		
 		if (obj.getType() == 0){
-			Player* temp = static_cast<Player*>(obj);
-			temp->setCoord(row, column);
-			temp->setFloor(this);
+			Player temp = (Player) obj;
+			temp.setCoord(row, column);
+			temp.setFloor(this);
 		}
 
-		if (obj->getType() == 1){
-			Enemy* temp = static_cast<Enemy*>(obj);
-			temp->setCoord(row, column);
-			temp->setFloor(this);
+		if (obj.getType() == 1){
+			Enemy temp = (Enemy) obj;
+			temp.setCoord(row, column);
+			temp.setFloor(this);
 		}
 		
-		else if (obj->getType() == 2){
-			Gold* temp = static_cast<Gold*>(obj);
-			Dhorde* temp2;
-			if (temp->getGoldType() == 3){
-				temp2 = static_cast<Dhorde*>(temp);
-				temp2->setCoord(row, column);
-				temp2->spawnDrag(); //places surrounding dragon horde full?
+		else if (obj.getType() == 2){
+			Gold temp = (Gold) obj;
+			Dhorde temp2;
+			if (temp.getGoldType() == 3){
+				temp2 = (Dhorde) temp;
+				temp2.setCoord(row, column);
+				temp2.spawnDrag(); //places surrounding dragon horde full?
 			}
 		}
 		
 
-		layout[row][column]->setOnCell(obj);
+		layout[row][column].setOnCell(obj);
 		return true;
 	}
 
-	int Floor::reCalcRan(int random){
+	public int reCalcRan(int random){
 		int newRan;
 		do{
-			newRan = rand() % 5 + 1;
+			newRan = ranGen.nextInt(5) + 1;
 		}while(random == newRan);
 
 		return newRan;
 	}
 
-	void Floor::spawn(int seed){
+	public void spawn(int seed){
 		//random gen = 0
 		if (seed == 0){
-			int random = rand() % 5 + 1;
+			int random = ranGen.nextInt(5) + 1;
 			int temp = random;
-			Object* newObj;
+			Obj newObj;
 			//Player
-			chamSpawn(random, Player::getPlayer(0));
+			chamSpawn(random, Player::getPlayer(0)); //Static function needs to be fixed
 			//Stair
 			while(random == temp)
-				random = rand() % 5 + 1;
-			chamSpawn(random, new Stair);
+				random = ranGen.nextInt(5) + 1;
+		//	chamSpawn(random, new Stair); Original function
+			chamSpawn(random, new Stair());
 			//Potion
 			for (int x = 0; x < 10; x++){
-				random = rand() % 5 + 1;
-				newObj = new Potion;
+				random = ranGen.nextInt(5) + 1;
+				newObj = new Potion();
 				while(!chamSpawn(random, newObj)){
 					random = reCalcRan(random);
 				}
 			}
 			//Gold
 			for (int x = 0; x < 10; x++){
-				random = rand() % 5 + 1;
-				temp = rand() % 8 + 1;//denominator
+				random = ranGen.nextInt(5) + 1;
+				temp = ranGen.nextInt(8) + 1;//denominator
 				if (temp >= 1 && temp <= 5) //normal
 					newObj = new Gold(0);
 				else if (temp == 6)// dragon horde
@@ -358,8 +361,8 @@ public class Floor {
 			}
 			//Enemy
 			for (int x = 0; x < 20; x++){
-				random = rand() % 5 + 1;
-				temp = rand() % 18 + 1; //denominator
+				random = ranGen.nextInt(5) + 1;
+				temp = ranGen.nextInt(18) + 1; //denominator
 				if (temp >= 1 && temp <= 4) //Werewolf
 					newObj = new Enemy(1);
 				else if (temp >= 5 && temp <= 7) //Vampire
@@ -371,7 +374,7 @@ public class Floor {
 				else if (temp == 15 || temp == 16)//Phoenix
 					newObj = new Enemy(4);
 				else //Merchant
-					newObj = new Merchant;
+					newObj = new Merchant();
 				while(!chamSpawn(random, newObj)){
 					random = reCalcRan(random);
 				}
@@ -380,36 +383,37 @@ public class Floor {
 		//fixed gen type 1 = 1
 		else if (seed == 1){
 			//Player
-			layout[3][10]->setOnCell(Player::getPlayer(0));//default param don't work?
+			layout[3][10].setOnCell(Player::getPlayer(0));//default param don't work?
+			//Static func requires to be fixed
 			//Stair
-			layout[11][43]->setOnCell(new Stair);
+			layout[11][43].setOnCell(new Stair);
 			//Potion
 			//Gold
-			layout[5][15]->setOnCell(new Gold(0));
-			layout[3][60]->setOnCell(new Gold(0));
+			layout[5][15].setOnCell(new Gold(0));
+			layout[3][60].setOnCell(new Gold(0));
 
 //			layout[8][69]->setOnCell(new Dhorde);//dragon horde
 			
-			layout[10][47]->setOnCell(new Gold(0));
-			layout[17][14]->setOnCell(new Gold(0));
-			layout[21][9]->setOnCell(new Gold(0));
-			layout[17][68]->setOnCell(new Gold(0));
-			layout[17][71]->setOnCell(new Gold(0));
+			layout[10][47].setOnCell(new Gold(0));
+			layout[17][14].setOnCell(new Gold(0));
+			layout[21][9].setOnCell(new Gold(0));
+			layout[17][68].setOnCell(new Gold(0));
+			layout[17][71].setOnCell(new Gold(0));
 			//Enemy
-			layout[4][23]->setOnCell(new Enemy(1));
-			layout[6][10]->setOnCell(new Enemy(0));
+			layout[4][23].setOnCell(new Enemy(1));
+			layout[6][10].setOnCell(new Enemy(0));
 //			layout[6][24]->setOnCell(new Enemy(5));
-			layout[3][49]->setOnCell(new Enemy(2));
-			layout[5][49]->setOnCell(new Enemy(3));
-			layout[5][60]->setOnCell(new Enemy(3));
-			layout[9][63]->setOnCell(new Enemy(4));
-			layout[4][23]->setOnCell(new Enemy(1));
+			layout[3][49].setOnCell(new Enemy(2));
+			layout[5][49].setOnCell(new Enemy(3));
+			layout[5][60].setOnCell(new Enemy(3));
+			layout[9][63].setOnCell(new Enemy(4));
+			layout[4][23].setOnCell(new Enemy(1));
 
 		}
 	}
 
-	void Floor::spawnGold(int r, int c){
-		layout[r][c]->setOnCell(new Gold(2));
+	public void spawnGold(int r, int c){
+		layout[r][c].setOnCell(new Gold(2));
 	}
 	
 }
