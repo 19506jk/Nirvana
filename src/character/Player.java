@@ -17,6 +17,8 @@ public class Player implements Obj {
 	public Player(int choice) {
 		gold = 0;
 		Potiontrack = new int[16];
+		buff = new Buff();
+		action = new PlayerInteract();
 			
 		if (choice == 1)
 		{

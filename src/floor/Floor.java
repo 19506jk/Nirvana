@@ -92,10 +92,8 @@ public class Floor {
 	}
 
 	public static Floor getInst(){
-		if (thisFloor != null){
+		if (thisFloor == null){
 			thisFloor = new Floor();
-			//C++ code, may be useful
-			//atexit(cleanup);
 		}
 		return thisFloor;
 	}
@@ -112,27 +110,27 @@ public class Floor {
 					content = layout[r][c].getType();
 					switch (content) {
 					case VOID:
-						System.out.println(" ");
+						System.out.print(" ");
 						break;
 					case HORIW:
-						System.out.println("-");
+						System.out.print("-");
 						break;
 					case VERTIW:
-						System.out.println("|");
+						System.out.print("|");
 						break;
 					case DOOR:
-						System.out.println("+");
+						System.out.print("+");
 						break;
 					case PASSAGE:
-						System.out.println("#");
+						System.out.print("#");
 						break;
 					case TILE:
-						System.out.println(".");
+						System.out.print(".");
 						break;
 					}
 				}
 				else{
-					System.out.println(layout[r][c].getOnCell().getRep());
+					System.out.print(layout[r][c].getOnCell().getRep());
 				}
 			}
 			System.out.println();

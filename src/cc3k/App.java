@@ -80,11 +80,12 @@ public class App {
 
 		String cmd;
 		String direc;
-		Floor pFloor = null;
 		Player player;
 		Obj tempObj;
+		Floor pFloor = null;
 		
 		player = newGame(pFloor);
+		pFloor = Floor.getInst(); 
 
 		while(true){
 			
@@ -186,7 +187,6 @@ public class App {
 						if (tempObj != null){
 							if (tempObj.getType() == 1){
 								Enemy enemy = (Enemy) tempObj;
-				//				Enemy enemy = static_cast<Enemy*>(tempObj);
 								enemy.resetMoved();
 							}
 						}
@@ -270,18 +270,9 @@ public class App {
 		System.out.println("HP: " + player.gethp());
 		System.out.println("Atk: " + player.getatk());
 		System.out.println("Def: " + player.getdef());
-		System.out.println("Action: ");
+		System.out.print("Action: ");
 		//Under construction here
 		//System.out.println("Job: " + player.getJob());
-		/*
-		cout << "Race: " << player->getRace();
-		cout << " Gold: " << player->getgold();
-		cout << "\t\t\t\t\t\tFloor " << level << endl;
-		cout << "HP: " << player->gethp() << endl;
-		cout << "Atk: " << player->getatk() << endl;
-		cout << "Def: " << player->getdef() << endl;
-		cout << "Action: ";
-		*/
 		floor.showMsg();
 		System.out.println();
 		floor.clearmsg();
