@@ -5,7 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
-import character.Obj;
+import character.*;
+import enums.Square;
 
 public class Floor {
 	
@@ -32,7 +33,7 @@ public class Floor {
 		action = "";
 		char read;
 		int cham;
-		Square type;
+		Square type = null;
 		
 		try {
 			fileReader = new FileReader("floorPlan.txt");
@@ -202,20 +203,20 @@ public class Floor {
 	}
 
 	//Broken function with uncertain meaning, requires to be investigated and fixed
-	Object** Floor::scanPotion(int r, int c){
-		Object** array = new Object*[8];
+	public Obj[] scanPotion(int r, int c){
+		Obj[] array = new Obj[8];
 		for (int x = 0; x < 8; x++){
-			array[x] = NULL;
+			array[x] = null;
 		}
 		int count = 0;
 		for (int x = r-1; x <= r+1; x++){
 			for (int y = c-1; y <= c+1; y++){
 				if (x == r && y == c)
 					continue;
-				if (layout[x][y]->getOnCell() == NULL)
+				if (layout[x][y].getOnCell() == null)
 					continue;
-				else if (layout[x][y]->getOnCell()->getType() == 3){
-					array[count] = layout[x][y]->getOnCell();
+				else if (layout[x][y].getOnCell().getType() == 3){
+					array[count] = layout[x][y].getOnCell();
 					count++;
 				}
 			}
@@ -245,7 +246,7 @@ public class Floor {
 
 	//Randomization functions that requires seeding
 	boolean chamSpawn(int chamID, Obj obj){//chamber overflow?
-		int row, column;
+		int row = 0, column = 0;
 		int count = 0;
 		do{
 			switch (chamID){
@@ -323,6 +324,10 @@ public class Floor {
 
 		return newRan;
 	}
+	
+	public void spawn() {
+		spawn(0);
+	}
 
 	public void spawn(int seed){
 		//random gen = 0
@@ -331,7 +336,7 @@ public class Floor {
 			int temp = random;
 			Obj newObj;
 			//Player
-			chamSpawn(random, Player::getPlayer(0)); //Static function needs to be fixed
+			chamSpawn(random, Player.getPlayer(0)); //Static function needs to be fixed
 			//Stair
 			while(random == temp)
 				random = ranGen.nextInt(5) + 1;
@@ -383,10 +388,10 @@ public class Floor {
 		//fixed gen type 1 = 1
 		else if (seed == 1){
 			//Player
-			layout[3][10].setOnCell(Player::getPlayer(0));//default param don't work?
+			layout[3][10].setOnCell(Player.getPlayer(0));//default param don't work?
 			//Static func requires to be fixed
 			//Stair
-			layout[11][43].setOnCell(new Stair);
+			layout[11][43].setOnCell(new Stair());
 			//Potion
 			//Gold
 			layout[5][15].setOnCell(new Gold(0));

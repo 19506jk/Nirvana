@@ -2,8 +2,6 @@ package cc3k;
 
 import character.*;
 import floor.*;
-
-import java.io.*;
 import java.util.*;
 
 
@@ -28,7 +26,7 @@ public class App {
 	private int calcScore(Player player){
 		int score;
 		if (player.getRace() == "Human"){
-			score = player.getgold() * 1.5;
+			score = (int) (player.getgold() * 1.5);
 		}
 		else
 			score = player.getgold();
@@ -79,9 +77,7 @@ public class App {
 	}
 	
 	private void startGame(){
-		/*
-		srand(time(0)); //random seed?
-		*/
+
 		String cmd;
 		String direc;
 		Floor pFloor = null;
@@ -222,7 +218,7 @@ public class App {
 	 */
 	private Player newGame(Floor floor){
 
-		Player player;
+		Player player = null;
 		String cmd;
 		boolean badinput = false;
 		for (int x = 0; x < 50; x++)
@@ -246,19 +242,19 @@ public class App {
 			}
 			else{
 				badinput = false;
-				Player::resetPlayer(); //static function needs to be fixed
+				Player.resetPlayer(); 
 				if ("h".equals(cmd))
-					player = Player::getPlayer(0); //static function needs to be fixed
+					player = Player.getPlayer(0); 
 				else if ("e".equals(cmd))
-					player = Player::getPlayer(2); //static function needs to be fixed
+					player = Player.getPlayer(2); 
 				else if ("d".equals(cmd))
-					player = Player::getPlayer(1); //static function needs to be fixed
+					player = Player.getPlayer(1); 
 				else if ("o".equals(cmd))
-					player = Player::getPlayer(3); //static function needs to be fixed
+					player = Player.getPlayer(3); 
 			}
 		}while(badinput);
 		level = 1;
-		floor = Floor::getInst(); //static function needs to be fixed
+		floor = Floor.getInst(); 
 		floor.spawn();
 		floor.changemsg("Player character has spawned");
 		display(floor);
@@ -266,14 +262,14 @@ public class App {
 	}
 	
 	private void display(Floor floor){
-		Player player = Player::getPlayer(); //Static method to be fixed
+		Player player = Player.getPlayer(); //Static method to be fixed
 		floor.display();
 		System.out.printf("Race: " + player.getRace());
-		System.out.printf(" Gold " + player.getGold());
+		System.out.printf(" Gold " + player.getgold());
 		System.out.println("\t\t\t\t\t\tFloor " + level);
-		System.out.println("HP: " + player.getHP());
-		System.out.println("Atk: " + player.getAtk());
-		System.out.println("Def: " + player.getDef());
+		System.out.println("HP: " + player.gethp());
+		System.out.println("Atk: " + player.getatk());
+		System.out.println("Def: " + player.getdef());
 		System.out.println("Action: ");
 		//Under construction here
 		//System.out.println("Job: " + player.getJob());

@@ -1,6 +1,7 @@
 package floor;
 
 import character.Obj;
+import enums.Square;
 
 public final class Cell {
 	
