@@ -19,6 +19,15 @@ public class Player implements Obj {
 		Potiontrack = new int[16];
 		buff = new Buff();
 		action = new PlayerInteract();
+		
+		if (choice == 0)
+		{
+			hp = 140;
+			atk = 20;
+			def = 20;
+			races = "Human";
+			race = new Human();
+		}
 			
 		if (choice == 1)
 		{
@@ -47,15 +56,6 @@ public class Player implements Obj {
 			race = new Orc();
 		}
 		
-		else
-		{
-			hp = 140;
-			atk = 20;
-			def = 20;
-			races = "Human";
-			race = new Human();
-		}
-
 		for (int i = 0; i < 6; i++)
 		{
 			Potiontrack[i] = 0;

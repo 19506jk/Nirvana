@@ -250,7 +250,7 @@ public class App {
 				else if ("d".equals(cmd))
 					player = Player.getPlayer(1); 
 				else if ("o".equals(cmd))
-					player = Player.getPlayer(3); 
+					player = Player.getPlayer(3);
 			}
 		}while(badinput);
 		level = 1;
@@ -276,6 +276,26 @@ public class App {
 		floor.showMsg();
 		System.out.println();
 		floor.clearmsg();
+	}
+	
+	// Need to be changed for our version
+	private void help(){
+		System.out.println("Move: ");
+		System.out.println("no = move north");
+		System.out.println("ea = move east");
+		System.out.println("so = move south");
+		System.out.println("we = move west");
+		System.out.println("nw = move northwest");
+		System.out.println("ne = move northeast");
+		System.out.println("se = move southeast");
+		System.out.println("sw = move southwest");
+		System.out.println();
+		System.out.println("Attack: ");
+		System.out.println("input 'a' followed by direction");
+		System.out.println("e.g.: ano = attack north");
+		System.out.println();
+		System.out.println("Use potion: ");
+		System.out.println("input 'u' followed by direction");
 	}
 	
 	public static void main(String[] args) {
