@@ -21,7 +21,9 @@ public class App {
 	private int level = 1;
 	private boolean won = false;
 	private boolean ascended = false;
+	private Floor pFloor = null;
 	Scanner input = new Scanner(System.in);
+
 	
 	private int calcScore(Player player){
 		int score;
@@ -82,9 +84,9 @@ public class App {
 		String direc;
 		Player player;
 		Obj tempObj;
-		Floor pFloor = null;
+
 		
-		player = newGame(pFloor);
+		player = newGame();
 		pFloor = Floor.getInst(); 
 
 		while(true){
@@ -137,7 +139,7 @@ public class App {
 				/* Opening file needed? No file has been opened
 				file.seekg(0); //Reading file?
 				*/
-				player = newGame(pFloor);
+				player = newGame();
 				ascended = false;
 			}
 			else if ("u".equals(cmd) || "a".equals(cmd)){
@@ -206,7 +208,7 @@ public class App {
 						}
 					}
 				}
-				display(pFloor);
+				display();
 			}
 		}
 		return;
@@ -216,7 +218,7 @@ public class App {
 	 This function may have lots of pass by value/reference error occuring, due to the c++
 	 version applied a lot of reference techniques.
 	 */
-	private Player newGame(Floor floor){
+	private Player newGame(){
 
 		Player player = null;
 		String cmd;
@@ -254,16 +256,16 @@ public class App {
 			}
 		}while(badinput);
 		level = 1;
-		floor = Floor.getInst(); 
-		floor.spawn();
-		floor.changemsg("Player character has spawned");
-		display(floor);
+		pFloor = Floor.getInst(); 
+		pFloor.spawn();
+		pFloor.changemsg("Player character has spawned");
+		display();
 		return player;
 	}
 	
-	private void display(Floor floor){
+	private void display(){
 		Player player = Player.getPlayer(); //Static method to be fixed
-		floor.display();
+		pFloor.display();
 		System.out.printf("Race: " + player.getRace());
 		System.out.printf(" Gold " + player.getgold());
 		System.out.println("\t\t\t\t\t\tFloor " + level);
@@ -273,9 +275,9 @@ public class App {
 		System.out.print("Action: ");
 		//Under construction here
 		//System.out.println("Job: " + player.getJob());
-		floor.showMsg();
+		pFloor.showMsg();
 		System.out.println();
-		floor.clearmsg();
+		pFloor.clearmsg();
 	}
 	
 	// Need to be changed for our version

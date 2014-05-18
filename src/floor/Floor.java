@@ -41,7 +41,11 @@ public class Floor {
 			for (int r = 0; r < maxRow; r++){
 				for (int c = 0; c < maxCol; c++){
 					read = (char)br.read(); //read() returns the ASCII for that char
-					if (read == 10){ //if the read in char is newline, skip to next char
+					if (read == 10 || read == 13){ 
+						//if the read in char is newline or carriage return, skip to next char
+						//This part is MS platform specific, as MS txt files have to have both CR and LF
+						//to mark a new line. In linux only LF is required, and Mac only CR.
+						read = (char)br.read();
 						read = (char)br.read();
 					}
 					switch (read) {
