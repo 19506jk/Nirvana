@@ -106,7 +106,7 @@ class PlayerInteract extends Interaction {
 					
 			}
 			
-			if (ftype == Square.HORIW || ftype == Square.VERTIW)
+			else if (ftype == Square.HORIW || ftype == Square.VERTIW)
 			{
 				String msg = "PC tried to walk into a wall, but wall pushed PC back. ";
 				floor.changemsg(msg);
@@ -144,6 +144,7 @@ class PlayerInteract extends Interaction {
 			float enemydef = enemy.getDef();
 			float playeratk = player.getatk();
 			int damage = (int) Math.ceil(((100 / (100 + enemydef))) * playeratk);
+			enemy.changehp(damage);
 			String msg = "PC deals " + damage + " to " + enemy.getRep() + ". (" + enemy.getHP() + " HP) ";
 			floor.changemsg(msg);
 

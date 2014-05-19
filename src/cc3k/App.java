@@ -230,7 +230,7 @@ public class App {
 		System.out.println("Choose your race:");
 		System.out.println("Human(h), Elves(e), Dwarf(d), Orc(o)");
 		System.out.println();
-		System.out.println("Quit(q) Restart(r) Help(?)");
+		System.out.println("Quit(q) Help(?)");
 
 		do{			
 			cmd = input.next(); // Scanner in?
@@ -238,7 +238,9 @@ public class App {
 			if (!("h".equals(cmd)) && 
 					!("e".equals(cmd)) && 
 					!("d".equals(cmd)) && 
-					!("o".equals(cmd))){
+					!("o".equals(cmd)) &&
+					!("q".equals(cmd)) &&
+					!("?".equals(cmd))){
 				System.out.println("Bad Input, try again\n");
 				badinput = true;
 			}
@@ -253,6 +255,15 @@ public class App {
 					player = Player.getPlayer(1); 
 				else if ("o".equals(cmd))
 					player = Player.getPlayer(3);
+				else if ("q".equals(cmd)){
+					System.exit(0);
+				}
+				else if ("?".equals(cmd)){
+					help();
+					badinput = true; 
+					//Setting badinput here to be true is to
+					//loop the input one more time, let player rechoose.
+				}
 			}
 		}while(badinput);
 		level = 1;
