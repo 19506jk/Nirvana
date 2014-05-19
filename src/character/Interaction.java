@@ -22,56 +22,56 @@ class Interaction {
 	public void combat(Obj o) { return; }
 	
 	public void setDirection(String dir) {
-		if (dir == "no")
+		if ("no".equals(dir))
 		{
 			tr = pr - 1;
 			tc = pc;
 			direction = "North";
 		}
 
-		if (dir == "so")
+		else if ("so".equals(dir))
 		{
 			tr = pr + 1;
 			tc = pc;
 			direction = "South";
 		}
 
-		if (dir == "ea")
+		else if ("ea".equals(dir))
 		{
 			tr = pr;
 			tc = pc + 1;
 			direction = "East";
 		}
 
-		if (dir == "we")
+		else if ("we".equals(dir))
 		{
 			tr = pr;
 			tc = pc -1;
 			direction = "West";
 		}
 
-		if (dir == "ne")
+		else if ("ne".equals(dir))
 		{
 			tr = pr - 1;
 			tc = pc + 1;
 			direction = "Northeast";
 		}
 
-		if (dir == "nw")
+		else if ("nw".equals(dir))
 		{
 			tr = pr - 1;
 			tc = pc - 1;
 			direction = "Northwest";
 		}
 
-		if (dir == "se")
+		else if ("se".equals(dir))
 		{
 			tr = pr + 1;
 			tc = pc + 1;
 			direction = "Southeast";
 		}
 
-		if (dir == "sw")
+		else // else if ("sw".equals(dir))
 		{
 			tr = pr + 1;
 			tc = pc - 1;

@@ -14,7 +14,7 @@ public class Player implements Obj {
 	
 	static Player player = null;
 
-	public Player(int choice) {
+	private Player(int choice) {
 		gold = 0;
 		Potiontrack = new int[16];
 		buff = new Buff();
