@@ -158,19 +158,19 @@ public class App {
 				if(direcTrap(cmd)){
 					int r = player.getpr();
 					int c = player.getpc();
-					if (cmd == "no")
+					if (cmd.equals("no"))
 						tempObj = pFloor.getObj(r-1, c);
-					else if (cmd == "ne")
+					else if (cmd.equals("ne"))
 						tempObj = pFloor.getObj(r-1, c+1);
-					else if (cmd == "ea")
+					else if (cmd.equals("ea"))
 						tempObj = pFloor.getObj(r, c+1);
-					else if (cmd == "se")
+					else if (cmd.equals("se"))
 						tempObj = pFloor.getObj(r+1, c+1);
-					else if (cmd == "so")
+					else if (cmd.equals("so"))
 						tempObj = pFloor.getObj(r+1, c);
-					else if (cmd == "sw")
+					else if (cmd.equals("sw"))
 						tempObj = pFloor.getObj(r+1, c-1);
-					else if (cmd == "we")
+					else if (cmd.equals("we"))
 						tempObj = pFloor.getObj(r, c-1);
 					else
 						tempObj = pFloor.getObj(r-1, c-1);
