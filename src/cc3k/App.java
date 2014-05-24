@@ -27,11 +27,13 @@ public class App {
 	
 	private int calcScore(Player player){
 		int score;
-		if (player.getRace() == "Human"){
+		if (player.getRace().equals("Human")){
 			score = (int) (player.getgold() * 1.5);
 		}
 		else
-			score = player.getgold();
+        {
+            score = player.getgold();
+        }
 
 		return score;
 	}
@@ -142,6 +144,24 @@ public class App {
 				player = newGame();
 				ascended = false;
 			}
+            else if ("add".equals(cmd))
+            {
+                String type = input.next();
+                String amount = input.next();
+
+                if (isInteger(amount)) {
+                    int amt = Integer.parseInt(amount);
+                    player.addAttr(type, amt);
+                }
+
+                else
+                {
+                    System.err.println("Bad Input: add [attribute type] [amount]");
+                    continue;
+                }
+
+            }
+
 			else if ("u".equals(cmd) || "a".equals(cmd)){
 				direc = input.next();
 				while(!direcTrap(direc)){
@@ -194,14 +214,13 @@ public class App {
 						}
 					}
 				}
-				if (ascended == false){
+				if (!ascended){
 					for (int r = 0; r < maxRow; r++){
 						for (int c = 0; c < maxCol; c++){
 							tempObj = pFloor.getObj(r, c);
 							if (tempObj != null){
 								if (tempObj.getType() == 1){
 									Enemy enemy = (Enemy) tempObj;
-							//		Enemy* enemy = static_cast<Enemy*>(tempObj);
 									enemy.randmove();
 								}
 							}
@@ -211,7 +230,6 @@ public class App {
 				display();
 			}
 		}
-		return;
 	}
 	
 	/*
@@ -222,7 +240,7 @@ public class App {
 
 		Player player = null;
 		String cmd;
-		boolean badinput = false;
+		boolean badinput;
 		for (int x = 0; x < 50; x++)
 			System.out.println('\n');
 
@@ -277,12 +295,15 @@ public class App {
 	private void display(){
 		Player player = Player.getPlayer(); //Static method to be fixed
 		pFloor.display();
+        System.out.println("Level: " + player.getLvl());
+        System.out.println("Exp: " + player.getExp() + " / " + player.getExpCap());
 		System.out.printf("Race: " + player.getRace());
 		System.out.printf(" Gold " + player.getgold());
 		System.out.println("\t\t\t\t\t\tFloor " + level);
 		System.out.println("HP: " + player.gethp());
 		System.out.println("Atk: " + player.getatk());
 		System.out.println("Def: " + player.getdef());
+        System.out.println("Str: " + player.getStr() + "  Dex: " + player.getDex() + " Int: " + player.getInt());
 		System.out.print("Action: ");
 		//Under construction here
 		//System.out.println("Job: " + player.getJob());
@@ -290,8 +311,7 @@ public class App {
 		System.out.println();
 		pFloor.clearmsg();
 	}
-	
-	// Need to be changed for our version
+
 	private void help(){
 		System.out.println("Move: ");
 		System.out.println("no = move north");
@@ -315,5 +335,14 @@ public class App {
 		new App().startGame();
 		System.exit(0);
 	}
+
+    public boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
 
 }
