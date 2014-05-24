@@ -5,7 +5,7 @@ import floor.Floor;
 public class Enemy implements Obj {
 	
 	MobType type;
-	int hp, atk, def, gold, rep;
+	int hp, atk, def, gold, rep, exp;
 	boolean moved;
 	MobInteract action = null;
 	
@@ -24,6 +24,8 @@ public class Enemy implements Obj {
 		gold = 1;
 		moved = false; 
 		action = new MobInteract();
+
+        exp = 10; //TODO: different mob types should give different amount of exp
 	
 		if (type == MobType.VAMP.ordinal())
 		{
@@ -85,8 +87,10 @@ public class Enemy implements Obj {
 
 	public int getDef() { return def; }
 
+    public int getExp() { return exp; }
+
 	public void randmove() {
-		if (moved == true)
+		if (moved)
 		{
 			return;
 		}

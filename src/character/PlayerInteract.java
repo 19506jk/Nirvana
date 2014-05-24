@@ -25,7 +25,7 @@ class PlayerInteract extends Interaction {
 				if (gold.getGoldType() == 3)
 				{
 					Dhorde dgold = (Dhorde)target;
-					if (dgold.canopen() == true)
+					if (dgold.canopen())
 					{
 						player.changegold(gold.giveGold());
 						floor.clearCell(tr, tc);
@@ -84,16 +84,16 @@ class PlayerInteract extends Interaction {
 				pr = tr;
 				pc = tc;
 
-				if (plist == "")
+				if (plist.equals(""))
 				{
-					String msg = "";
+					String msg;
 					msg = "PC moves " + direction + ". "; 
 					floor.changemsg(msg);
 				}
 			
 				else
 				{
-					String msg = "";
+					String msg;
 					plist += "potion. ";
 					msg = "PC moves " + direction + " and sees " + plist;
 					floor.changemsg(msg);
@@ -151,6 +151,8 @@ class PlayerInteract extends Interaction {
 			if (enemy.getHP() <= 0)
 			{
 				int money = enemy.giveGold();
+                int exp = enemy.getExp();
+                player.addExp(exp);
 				player.changegold(enemy.giveGold());
 				if (enemy.getRep() == 'M')
 				{
@@ -168,7 +170,7 @@ class PlayerInteract extends Interaction {
 					floor.clearCell(tr, tc);
 				}
 
-				msg += "PC gets " + money + " Gold.";
+				msg += "PC gets " + money + " Gold and " + exp + " experience.";
 				floor.changemsg(msg);
 			}
 
@@ -201,4 +203,37 @@ class PlayerInteract extends Interaction {
 
 	public int getCol() { return pc; }
 
+    public void addAttr(Player p, String type, int amt) {
+        String successMsg = "";
+
+        for (int i = 0; i < amt; i++) {
+            if(p.getExp() >= p.getExpCap())
+            {
+                if (type.equals("str"))
+                {
+                    p.setStr(1);
+                }
+
+                else if (type.equals("dex"))
+                {
+                    p.setDex(1);
+                }
+
+                else if (type.equals("int"))
+                {
+                    p.setInt(1);
+                }
+                p.addLvl();
+            }
+
+            else
+            {
+                successMsg = "PC needs " + (p.getExpCap() - p.getExp()) + " to add the next attribute.";
+                amt = i;
+                break;
+            }
+        }
+        String msg = "PC adds " + amt + " points to " + type + ". " + successMsg;
+        floor.changemsg(msg);
+    }
 }
