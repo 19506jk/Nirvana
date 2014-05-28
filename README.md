@@ -22,3 +22,6 @@ Example: a no = attack north
 ### Use potion
 input 'u' followed by direction <br>
 Example: u no = use the potion at north
+
+### Visit town
+input "town"
