@@ -3,6 +3,7 @@ package cc3k;
 import character.*;
 import floor.*;
 import java.util.*;
+import town.MainInteraction;
 
 
 /*
@@ -130,19 +131,15 @@ public class App {
 			
 			if ("q".equals(cmd)){
 				pFloor.resetFloor();
-				/* Closing file needed? No file has been opened
-				file.clear(); //File clear?
-				file.close(); //File close?
-				*/
 				break;
 			}
 			else if ("r".equals(cmd)){
 				pFloor.resetFloor();
-				/* Opening file needed? No file has been opened
-				file.seekg(0); //Reading file?
-				*/
 				player = newGame();
 				ascended = false;
+			}
+			else if ("town".equals(cmd)){
+				MainInteraction.visitShop();
 			}
             else if ("add".equals(cmd))
             {
@@ -159,7 +156,6 @@ public class App {
                     System.err.println("Bad Input: add [attribute type] [amount]");
                     continue;
                 }
-
             }
 
 			else if ("u".equals(cmd) || "a".equals(cmd)){
@@ -198,7 +194,7 @@ public class App {
 						player.makemove(cmd);
 						ascended = false;
 					}				
-				}
+				}   
 				else
 					continue;
 			}
