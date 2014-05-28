@@ -84,11 +84,11 @@ public class Player implements Obj {
      *  Setters
      */
 
-    public void setStr(int amt) { str += amt; }
+    public void incStr(int amt) { str += amt; }
 
-    public void setDex(int amt) { dex += amt; }
+    public void incDex(int amt) { dex += amt; }
 
-    public void setInt(int amt) { intel += amt; }
+    public void incInt(int amt) { intel += amt; }
 	
 	public void changegold(int amt) {
 		gold += race.addgold(amt);

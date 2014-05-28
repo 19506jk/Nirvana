@@ -211,17 +211,17 @@ class PlayerInteract extends Interaction {
             {
                 if (type.equals("str"))
                 {
-                    p.setStr(1);
+                    p.incStr(1);
                 }
 
                 else if (type.equals("dex"))
                 {
-                    p.setDex(1);
+                    p.incDex(1);
                 }
 
                 else if (type.equals("int"))
                 {
-                    p.setInt(1);
+                    p.incInt(1);
                 }
                 p.addLvl();
             }
