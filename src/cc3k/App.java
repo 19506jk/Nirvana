@@ -148,7 +148,6 @@ public class App {
 
                 if (isInteger(amount)) {
                     int amt = Integer.parseInt(amount);
-                    player.addAttr(type, amt);
                 }
 
                 else
@@ -291,8 +290,6 @@ public class App {
 	private void display(){
 		Player player = Player.getPlayer(); //Static method to be fixed
 		pFloor.display();
-        System.out.println("Level: " + player.getLvl());
-        System.out.println("Exp: " + player.getExp() + " / " + player.getExpCap());
 		System.out.printf("Race: " + player.getRace());
 		System.out.printf(" Gold " + player.getgold());
 		System.out.println("\t\t\t\t\t\tFloor " + level);
