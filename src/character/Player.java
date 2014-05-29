@@ -5,37 +5,28 @@ import floor.Floor;
 
 public class Player implements Obj {
 	int hp, atk, def, gold;
-    int level, exp, expCap;
     int str, dex, intel;
 	String races;
 	Race race = null;
 	Buff buff = null;
-	int[] Potiontrack = null;
+	int[] potionTrack = null;
 	PlayerInteract action = null;
-	
-	
 	static Player player = null;
 
 	private Player(int choice) {
 		gold = 0;
-		Potiontrack = new int[16];
+		potionTrack = new int[16];
 		buff = new Buff();
 		action = new PlayerInteract();
 
-        level = 1;
-        exp = 0;
-        expCap = 10;
-
         //TODO: need to have different stats for different race
-        str = 5;
-        dex = 5;
-        intel = 5;
 		
 		if (choice == 0)
 		{
 			hp = 140;
-			atk = 20;
-			def = 20;
+            str = 5;
+            dex = 5;
+            intel = 5;
 			races = "Human";
 			race = new Human();
 		}
@@ -43,8 +34,9 @@ public class Player implements Obj {
 		if (choice == 1)
 		{
 			hp = 100;
-			atk = 20;
-			def = 30;
+            str = 5;
+            dex = 5;
+            intel = 5;
 			races = "Dwarf";
 			race = new Dwarf();
 		}
@@ -52,8 +44,9 @@ public class Player implements Obj {
 		if (choice == 2)
 		{
 			hp = 140;
-			atk = 30;
-			def = 10;
+            str = 5;
+            dex = 5;
+            intel = 5;
 			races = "Elves";
 			race = new Elves();
 		}
@@ -61,16 +54,20 @@ public class Player implements Obj {
 		if (choice == 3)
 		{
 			hp = 180;
-			atk = 30;
-			def = 25;
+            str = 5;
+            dex = 5;
+            intel = 5;
 			races = "Orc";
 			race = new Orc();
 		}
 		
 		for (int i = 0; i < 6; i++)
 		{
-			Potiontrack[i] = 0;
+			potionTrack[i] = 0;
 		}
+
+        updateAtk();
+        updateDef();
 	}
 	
 	public static void resetPlayer() {
@@ -90,7 +87,7 @@ public class Player implements Obj {
 
     public void incInt(int amt) { intel += amt; }
 	
-	public void changegold(int amt) {
+	public void changeGold(int amt) {
 		gold += race.addgold(amt);
 	}
 
@@ -134,15 +131,12 @@ public class Player implements Obj {
         action.setCurrentDir(r, c);
     }
 
-    public void addExp(int amt) { exp += amt; }
+    public void updateAtk() {
+        atk = (int) Math.round(str * Math.pow(1.03, str));
+    }
 
-    public void addLvl() {
-        if (exp >= expCap)
-        {
-            exp -= expCap;
-            expCap = expCap * 10; //TODO: need a formula for expCap
-            level++;
-        }
+    public void updateDef() {
+        def = (int) Math.round(dex * Math.pow(1.03, dex));
     }
 
     /*
@@ -185,12 +179,6 @@ public class Player implements Obj {
 
     public int getDex() { return dex; }
 
-    public int getExpCap() { return expCap; }
-
-    public int getExp() { return exp; }
-
-    public int getLvl() { return level; }
-
     public int getInt() { return intel; }
 
 	public String getRace() { return races; }
@@ -209,11 +197,11 @@ public class Player implements Obj {
      */
 
     public void trackPotion(int type) {
-        Potiontrack[type] = 1;
+        potionTrack[type] = 1;
     }
 
     public int checkPotion(int type) {
-        return Potiontrack[type];
+        return potionTrack[type];
     }
 
     public void resetbuff() {
@@ -228,10 +216,6 @@ public class Player implements Obj {
     public void makemove(String dir) {
         action.setDirection(dir);
         action.move(this);
-    }
-
-    public void addAttr(String type, int amt) {
-        action.addAttr(this, type, amt);
     }
 
 }

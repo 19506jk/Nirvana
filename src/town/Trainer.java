@@ -2,14 +2,12 @@ package town;
 
 import java.lang.Math;
 import character.Player;
-import town.MainInteraction;
 
 public class Trainer {
 
-	static Trainer thisTrainer = null;
+	static Trainer thisTrainer = null; //TODO: this field is not used
 	private static int currStr, currDex, currInt;
 	private static int strPrice, dexPrice, intPrice;
-	
 	
 	private static int priceCalc(double attri){
 		return (int) Math.pow(Math.log(attri) + attri, 2)/5;
@@ -30,7 +28,6 @@ public class Trainer {
 		int playerGold;
 		setUp();
 		do{
-			
 			playerGold = Player.getPlayer().getgold();
 			
 			displayStat();
@@ -42,15 +39,14 @@ public class Trainer {
 			System.out.println("2. Dexterity: " + dexPrice + " gold");
 			System.out.println("3. Intelligence: " + intPrice + " gold");
 			choice = MainInteraction.input.nextInt();
-			
-			
+
 			switch (choice){
 				case 1:
 					if (playerGold < strPrice){
 						System.out.println("You do not have enough Gold!");
 					}
 					else {
-						Player.getPlayer().changegold(-strPrice);
+						Player.getPlayer().changeGold(-strPrice);
 						Player.getPlayer().incStr(1);
 						currStr++;
 						strPrice = priceCalc((double) currStr);
@@ -62,7 +58,7 @@ public class Trainer {
 						System.out.println("You do not have enough Gold!");
 					}
 					else {
-						Player.getPlayer().changegold(-dexPrice);
+						Player.getPlayer().changeGold(-dexPrice);
 						Player.getPlayer().incDex(1);
 						currDex++;
 						dexPrice = priceCalc((double) currDex);
@@ -74,7 +70,7 @@ public class Trainer {
 						System.out.println("You do not have enough Gold!");
 					}
 					else {
-						Player.getPlayer().changegold(-intPrice);
+						Player.getPlayer().changeGold(-intPrice);
 						Player.getPlayer().incInt(1);
 						currInt++;
 						intPrice = priceCalc((double) currInt);
@@ -83,13 +79,13 @@ public class Trainer {
 					break;
 				default:
 					break;
-				
 			}
 		}while(choice != 0);
+        Player.getPlayer().updateAtk();
+        Player.getPlayer().updateDef();
 	}
 	
 	public static void displayStat(){
-
 		System.out.println("Current Status: ");
 		System.out.println("Strength: " + currStr);
 		System.out.println("Dexterity: " + currDex);
