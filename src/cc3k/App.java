@@ -141,21 +141,6 @@ public class App {
 			else if ("town".equals(cmd)){
 				MainInteraction.visitShop();
 			}
-            else if ("add".equals(cmd))
-            {
-                String type = input.next();
-                String amount = input.next();
-
-                if (isInteger(amount)) {
-                    int amt = Integer.parseInt(amount);
-                }
-
-                else
-                {
-                    System.err.println("Bad Input: add [attribute type] [amount]");
-                    continue;
-                }
-            }
 
 			else if ("u".equals(cmd) || "a".equals(cmd)){
 				direc = input.next();
@@ -328,14 +313,5 @@ public class App {
 		new App().startGame();
 		System.exit(0);
 	}
-
-    public boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch(NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
 
 }

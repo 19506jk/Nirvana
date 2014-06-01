@@ -1,5 +1,7 @@
 package character;
 
+import enums.MobType;
+
 class Dragon extends Enemy {
 	boolean playernear;
 	Dhorde horde = null;

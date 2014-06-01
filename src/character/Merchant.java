@@ -1,5 +1,7 @@
 package character;
 
+import enums.MobType;
+
 public class Merchant extends Enemy {
 	static boolean attacked = false;
 

@@ -8,7 +8,19 @@ class PlayerInteract extends Interaction {
 	public PlayerInteract() {
 		super();
 	}
-	
+
+    /*
+        Setters
+     */
+
+    public int getRow() { return pr; }
+
+    public int getCol() { return pc; }
+
+    /*
+        Methods
+     */
+
 	// type:
 	// 0 = player
 	// 1 = monster
@@ -197,7 +209,4 @@ class PlayerInteract extends Interaction {
 		}
 	}
 
-	public int getRow() { return pr; }
-
-	public int getCol() { return pc; }
 }

@@ -53,6 +53,10 @@ public class Potion implements Obj {
 			name = "WD";
 		}
 	}
+
+    /*
+        Getters
+     */
 			
 	public int getType() { return 3; }
 

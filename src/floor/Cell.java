@@ -15,6 +15,10 @@ public final class Cell {
 		onCell = null;
 	}
 
+    /*
+        Getters
+     */
+
 	public Square getType() { return type; }
 
 	public int getChamID() { return chamberID; }
@@ -25,6 +29,10 @@ public final class Cell {
 		else
 			return onCell;
 	}
+
+    /*
+        Setters
+     */
 
 	public void setOnCell(Obj obj){ onCell = obj; }
 	

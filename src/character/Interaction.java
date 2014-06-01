@@ -20,7 +20,11 @@ class Interaction {
 	
 	public void move(Obj o) { return; }
 	public void combat(Obj o) { return; }
-	
+
+    /*
+        Setters
+     */
+
 	public void setDirection(String dir) {
 		if ("no".equals(dir))
 		{

@@ -2,6 +2,7 @@ package character;
 
 import floor.Floor;
 import java.util.Random;
+import enums.MobType;
 
 public class Enemy implements Obj {
 	
@@ -10,21 +11,6 @@ public class Enemy implements Obj {
 	boolean moved;
 	MobInteract action = null;
 	
-	public enum MobType { VAMP, WEREW, TROLL, GOBLIN, PHOEN, MERCH, DRAGON };
-
-	public char getRep() {
-		return (char) rep;
-	}
-
-	public int getType() {
-		return 1;
-	}
-
-    public int calcGold(int lvl) {
-        Random rand = new Random();
-        return (int) (rand.nextGaussian() * (0.7 * lvl) + (5 * lvl));
-    }
-
 	public Enemy(int type) {
 		this.type = MobType.values()[type];
 		moved = false; 
@@ -88,6 +74,10 @@ public class Enemy implements Obj {
         gold = calcGold(level);
 	}
 
+    /*
+        Getters
+     */
+
 	public void changehp(int amt) { hp -= amt;}
 
 	public int getAtk() { return atk; }
@@ -95,6 +85,30 @@ public class Enemy implements Obj {
 	public int getDef() { return def; }
 
     public int getLvl() { return level; }
+
+    public char getRep() {
+        return (char) rep;
+    }
+
+    public int getType() {
+        return 1;
+    }
+
+    public int getHP() { return hp; }
+
+    /*
+        Setters
+     */
+
+    public void setCoord(int r, int c) {
+        action.setCurrentDir(r, c);
+    }
+
+    public void setFloor(Floor f) { action.setFloor(f); }
+
+    /*
+        Methods
+     */
 
 	public void randmove() {
 		if (moved)
@@ -117,18 +131,15 @@ public class Enemy implements Obj {
 		action.combat(this);
 	}
 
-	public int getHP() { return hp; }
-
 	public int giveGold() { return gold; }
-
-	public void setCoord(int r, int c) {
-		action.setCurrentDir(r, c);
-	}
-
-	public void setFloor(Floor f) { action.setFloor(f); }
 
 	public void resetMoved() {
 		moved = false;
 	}
+
+    public int calcGold(int lvl) {
+        Random rand = new Random();
+        return (int) (rand.nextGaussian() * (0.7 * lvl) + (5 * lvl));
+    }
 
 }

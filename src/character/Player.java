@@ -193,7 +193,7 @@ public class Player implements Obj {
 	}
 
     /*
-        Misc Methods
+        Methods
      */
 
     public void trackPotion(int type) {

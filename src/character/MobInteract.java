@@ -97,7 +97,6 @@ public class MobInteract extends Interaction {
 		}
 	}
 
-
 	Obj scan() {
 		return floor.scanPlayer(pr, pc);
 	}

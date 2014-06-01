@@ -18,15 +18,6 @@ public class Floor {
 	BufferedReader br;
 	FileReader fileReader;
 	Random ranGen = new Random();
-	//Original declaration
-	//Cell layout[maxRow];
-
-	/*
-	 *Clean up function not needed in java
-	void Floor::cleanup(){
-		delete thisFloor;
-	}
-	*/
 
 	private Floor(){
 		layout = new Cell[maxRow][maxCol];
@@ -157,8 +148,7 @@ public class Floor {
 		for (int r = 0; r < maxRow; r++){
 			for (int c = 0; c < maxCol; c++){
 				if (layout[r][c].getOnCell() != null){
-				layout[r][c].setOnCell(null); //Possibly cause memory leak if garbage
-											//collector does not clean up
+				layout[r][c].setOnCell(null);
 				}
 			}
 		}
@@ -173,8 +163,6 @@ public class Floor {
 			//Since java object no longer needs to be deleted prior to set to null,
 			//immediately setting cell to null is sufficient.
 			//Again, could cause memory leaks if the garbage collector does not cleanup
-			
-			//delete layout[r][c]->getOnCell();
 			layout[r][c].setOnCell(null);
 		}
 	}
@@ -204,7 +192,6 @@ public class Floor {
 		return null;
 	}
 
-	//Broken function with uncertain meaning, requires to be investigated and fixed
 	public Obj[] scanPotion(int r, int c){
 		Obj[] array = new Obj[8];
 		for (int x = 0; x < 8; x++){
@@ -342,7 +329,6 @@ public class Floor {
 			//Stair
 			while(random == temp)
 				random = ranGen.nextInt(5) + 1;
-		//	chamSpawn(random, new Stair); Original function
 			chamSpawn(random, new Stair());
 			//Potion
 			for (int x = 0; x < 10; x++){
@@ -391,7 +377,6 @@ public class Floor {
 		else if (seed == 1){
 			//Player
 			layout[3][10].setOnCell(Player.getPlayer(0));//default param don't work?
-			//Static func requires to be fixed
 			//Stair
 			layout[11][43].setOnCell(new Stair());
 			//Potion
@@ -399,8 +384,6 @@ public class Floor {
 			layout[5][15].setOnCell(new Gold(0));
 			layout[3][60].setOnCell(new Gold(0));
 
-//			layout[8][69]->setOnCell(new Dhorde);//dragon horde
-			
 			layout[10][47].setOnCell(new Gold(0));
 			layout[17][14].setOnCell(new Gold(0));
 			layout[21][9].setOnCell(new Gold(0));
