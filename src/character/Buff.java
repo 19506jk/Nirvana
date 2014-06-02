@@ -1,6 +1,6 @@
 package character;
 
-class Buff {
+public class Buff {
 	int atk, def;
 	
 	public Buff() {

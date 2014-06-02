@@ -3,6 +3,7 @@ package cc3k;
 import character.*;
 import floor.*;
 import java.util.*;
+import enums.JobClass;
 import town.MainInteraction;
 
 
@@ -142,6 +143,10 @@ public class App {
 				MainInteraction.visitShop();
 			}
 
+            else if ("s".equals(cmd)){
+                player.castSkill();
+            }
+
 			else if ("u".equals(cmd) || "a".equals(cmd)){
 				direc = input.next();
 				while(!direcTrap(direc)){
@@ -264,6 +269,31 @@ public class App {
 				}
 			}
 		}while(badinput);
+
+        // Let player choose a job
+
+        System.out.println("Choose your job:");
+        System.out.println("Knight(0), Rogue(1), Crusader(2)");
+        cmd = input.next();
+        badinput = true;
+
+        while(badinput) {
+            if ("0".equals(cmd))
+            {
+                player.setJob(0);
+
+            }
+            else if ("1".equals(cmd))
+            {
+                player.setJob(1);
+            }
+            else if ("2".equals(cmd))
+            {
+                player.setJob(2);
+            }
+            badinput = false;
+        }
+
 		level = 1;
 		pFloor = Floor.getInst(); 
 		pFloor.spawn();
@@ -275,7 +305,8 @@ public class App {
 	private void display(){
 		Player player = Player.getPlayer(); //Static method to be fixed
 		pFloor.display();
-		System.out.printf("Race: " + player.getRace());
+		System.out.printf("Race: " + player.getRace() + " ");
+        System.out.printf("Job: " + player.getJob().toLowerCase());
 		System.out.printf(" Gold " + player.getgold());
 		System.out.println("\t\t\t\t\t\tFloor " + level);
 		System.out.println("HP: " + player.gethp());
@@ -283,8 +314,6 @@ public class App {
 		System.out.println("Def: " + player.getdef());
         System.out.println("Str: " + player.getStr() + "  Dex: " + player.getDex() + " Int: " + player.getInt());
 		System.out.print("Action: ");
-		//Under construction here
-		//System.out.println("Job: " + player.getJob());
 		pFloor.showMsg();
 		System.out.println();
 		pFloor.clearmsg();

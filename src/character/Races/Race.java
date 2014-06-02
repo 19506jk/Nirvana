@@ -1,4 +1,6 @@
-package character;
+package character.races;
+
+import character.Buff;
 
 public interface Race {
 	public int addgold(int golds);
