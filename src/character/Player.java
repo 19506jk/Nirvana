@@ -1,6 +1,9 @@
 package character;
 
+import character.jobs.*;
+import character.races.*;
 import enums.PotionType;
+import enums.JobClass;
 import floor.Floor;
 
 public class Player implements Obj {
@@ -9,6 +12,7 @@ public class Player implements Obj {
 	String races;
 	Race race = null;
 	Buff buff = null;
+    Job job = null;
 	int[] potionTrack = null;
 	PlayerInteract action = null;
 	static Player player = null;
@@ -76,7 +80,6 @@ public class Player implements Obj {
         }
     }
 
-
     /*
      *  Setters
      */
@@ -139,6 +142,21 @@ public class Player implements Obj {
         def = (int) Math.round(dex * Math.pow(1.03, dex));
     }
 
+    public void setJob(int choice) {
+        if (choice == JobClass.KNIGHT.ordinal())
+        {
+            job = new Rogue(choice, "Young Money", "WestSide");
+        }
+        else if (choice == JobClass.ROGUE.ordinal())
+        {
+            job = new Rogue(choice, "Young Money", "WestSide");
+        }
+        else if (choice == JobClass.CRUSADER.ordinal())
+        {
+            job = new Rogue(choice, "Young Money", "WestSide");
+        }
+    }
+
     /*
      *  Getters
      */
@@ -192,6 +210,8 @@ public class Player implements Obj {
 		action.usePotion(this);
 	}
 
+    public String getJob() { return job.getname(); }
+
     /*
         Methods
      */
@@ -216,6 +236,10 @@ public class Player implements Obj {
     public void makemove(String dir) {
         action.setDirection(dir);
         action.move(this);
+    }
+
+    public void castSkill() {
+        job.skill1(null);
     }
 
 }

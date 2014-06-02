@@ -1,6 +1,9 @@
-package character;
+package character.races;
 
-class Human implements Race {
+import character.Buff;
+import character.races.Race;
+
+public class Elves implements Race {
 
 	public int addgold(int golds) {
 		return golds;
@@ -11,11 +14,13 @@ class Human implements Race {
 	}
 
 	public void addbuffatk(Buff b, int amt) {
-		b.setatk(amt);
+		b.setatk(Math.abs(amt));
+
 	}
 
 	public void addbuffdef(Buff b, int amt) {
-		b.setdef(amt);
+		b.setdef(Math.abs(amt));
+
 	}
 
 }

@@ -1,13 +1,16 @@
-package character;
+package character.races;
 
-public class Dwarf implements Race {
+import character.Buff;
+import character.races.Race;
+
+public class Human implements Race {
 
 	public int addgold(int golds) {
-		return golds * 2;
+		return golds;
 	}
 
 	public int maxHP() {
-		return 100;
+		return 140;
 	}
 
 	public void addbuffatk(Buff b, int amt) {

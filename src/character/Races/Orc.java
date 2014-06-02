@@ -1,6 +1,9 @@
-package character;
+package character.races;
 
-class Orc implements Race {
+import character.Buff;
+import character.races.Race;
+
+public class Orc implements Race {
 	int goldcount;
 	
 	public Orc() {
