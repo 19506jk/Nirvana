@@ -3,12 +3,11 @@ package cc3k;
 import character.*;
 import floor.*;
 import java.util.*;
-import enums.JobClass;
 import town.MainInteraction;
 
 
 /*
- * CC3K Ver 0.0.1
+ * CC3K Ver 0.1.0
  * Danny & Louis version
  * This is the main App class, still under construction
  * All the required class still needs to be converted from C++ to java
