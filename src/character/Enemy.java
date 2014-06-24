@@ -7,7 +7,8 @@ import enums.MobType;
 public class Enemy implements Obj {
 	
 	MobType type;
-	int hp, atk, def, gold, rep, level;
+	int hp, atk, def, gold, rep, level, stunned;
+    String name;
 	boolean moved;
 	MobInteract action = null;
 	
@@ -15,6 +16,7 @@ public class Enemy implements Obj {
 		this.type = MobType.values()[type];
 		moved = false; 
 		action = new MobInteract();
+        stunned = 0;
 
 		if (type == MobType.VAMP.ordinal())
 		{
@@ -23,6 +25,7 @@ public class Enemy implements Obj {
 			def = 25;
             level = 3;
 			rep = 'V';
+            name = "Vampire";
 		}
 		if (type == MobType.WEREW.ordinal())
 		{
@@ -30,6 +33,7 @@ public class Enemy implements Obj {
 			atk = 30;
 			def = 5;
 			rep = 'W';
+            name = "Werewolf";
 		}
 		if (type == MobType.TROLL.ordinal())
 		{
@@ -38,6 +42,7 @@ public class Enemy implements Obj {
 			def = 15;
             level = 4;
 			rep = 'T';
+            name = "Troll";
 		}
 		if (type == MobType.GOBLIN.ordinal())
 		{
@@ -46,6 +51,7 @@ public class Enemy implements Obj {
 			def = 10;
             level = 1;
 			rep = 'N';
+            name = "Goblin";
 		}
 		if (type == MobType.PHOEN.ordinal())
 		{
@@ -54,6 +60,7 @@ public class Enemy implements Obj {
 			def = 20;
             level = 5;
 			rep = 'X';
+            name = "Phoenix";
 		}
 		if (type == MobType.MERCH.ordinal())
 		{
@@ -62,6 +69,7 @@ public class Enemy implements Obj {
 			def = 5;
             level = 3;
 			rep = 'M';
+            name = "Merchant";
 		}
 		if (type == MobType.DRAGON.ordinal())
 		{
@@ -70,6 +78,7 @@ public class Enemy implements Obj {
 			def = 20;
             level = 2;
 			rep = 'D';
+            name = "Dragon";
 		}
         gold = calcGold(level);
 	}
@@ -96,6 +105,10 @@ public class Enemy implements Obj {
 
     public int getHP() { return hp; }
 
+    public String getName() { return name; }
+
+    public int getStunned() { return stunned; }
+
     /*
         Setters
      */
@@ -106,6 +119,8 @@ public class Enemy implements Obj {
 
     public void setFloor(Floor f) { action.setFloor(f); }
 
+    public void setStunned(int n) { stunned = n; }
+
     /*
         Methods
      */
@@ -115,8 +130,11 @@ public class Enemy implements Obj {
 		{
 			return;
 		}
-
-		if (action.scan() != null)
+        else if (stunned > 0) {
+            stunned--;
+            return;
+        }
+		else if (action.scan() != null)
 		{
 			action.combat(this);
 		}

@@ -143,8 +143,13 @@ public class App {
 				MainInteraction.visitShop();
 			}
 
-            else if ("s".equals(cmd)){
-                player.castSkill();
+            else if ("s1".equals(cmd)){
+                direc = input.next();
+                player.castSkill(direc);
+            }
+
+            else if ("job".equals(cmd)) {
+                listSkills();
             }
 
 			else if ("u".equals(cmd) || "a".equals(cmd)){
@@ -302,24 +307,25 @@ public class App {
 		return player;
 	}
 	
-	private void display(){
+	private void display() {
 		Player player = Player.getPlayer(); //Static method to be fixed
 		pFloor.display();
 		System.out.printf("Race: " + player.getRace() + " ");
-        System.out.printf("Job: " + player.getJob().toLowerCase());
 		System.out.printf(" Gold " + player.getgold());
 		System.out.println("\t\t\t\t\t\tFloor " + level);
 		System.out.println("HP: " + player.gethp());
 		System.out.println("Atk: " + player.getatk());
 		System.out.println("Def: " + player.getdef());
         System.out.println("Str: " + player.getStr() + "  Dex: " + player.getDex() + " Int: " + player.getInt());
-		System.out.print("Action: ");
+        System.out.println("Job: " + player.getJob().toLowerCase());
+        System.out.println("s1. " + player.getS1() + "   s2. " + player.getS2());
+        System.out.print("Action: ");
 		pFloor.showMsg();
 		System.out.println();
 		pFloor.clearmsg();
 	}
 
-	private void help(){
+	private void help() {
 		System.out.println("Move: ");
 		System.out.println("no = move north");
 		System.out.println("ea = move east");
@@ -336,7 +342,23 @@ public class App {
 		System.out.println();
 		System.out.println("Use potion: ");
 		System.out.println("input 'u' followed by direction");
+        System.out.println();
+        System.out.println("Cast skill: ");
+        System.out.println("input 's1' or 's2' followed by direction");
 	}
+
+    private void listSkills() {
+        Player player = Player.getPlayer();
+        System.out.println("Skills:");
+        System.out.println("-------------------------------------");
+        System.out.println("1. " + player.getS1());
+        System.out.println("Type: " + player.getS1Type());
+        System.out.println();
+        System.out.println("2. " + player.getS2());
+        System.out.println("Type: " + player.getS2Type());
+        System.out.println("-------------------------------------");
+
+    }
 	
 	public static void main(String[] args) {
 		new App().startGame();

@@ -1,9 +1,13 @@
 package character;
 
+import character.jobs.*;
+import enums.JobClass;
 import enums.PotionType;
 import enums.Square;
 
 class PlayerInteract extends Interaction {
+
+    Job job = null;
 
 	public PlayerInteract() {
 		super();
@@ -13,9 +17,38 @@ class PlayerInteract extends Interaction {
         Setters
      */
 
+    public void setJob(int choice) {
+        if (choice == JobClass.KNIGHT.ordinal())
+        {
+            job = new Knight(choice, "Stun", "WestSide", "attack", "buff");
+        }
+        else if (choice == JobClass.ROGUE.ordinal())
+        {
+            job = new Rogue(choice, "Double Stab", "WestSide", "attack", "buff");
+        }
+        else if (choice == JobClass.CRUSADER.ordinal())
+        {
+            job = new Rogue(choice, "Young Money", "WestSide", "combat", "buff");
+        }
+    }
+
+    /*
+        Getter
+     */
+
     public int getRow() { return pr; }
 
     public int getCol() { return pc; }
+
+    public String getJobName() { return job.getname(); }
+
+    public String getS1() { return job.gets1(); }
+
+    public String getS1Type() { return job.gets1Type(); }
+
+    public String getS2() { return job.gets2(); }
+
+    public String getS2Type() { return job.gets2Type(); }
 
     /*
         Methods
@@ -136,8 +169,7 @@ class PlayerInteract extends Interaction {
 		Player player = (Player) o;
 		if (target == null)
 		{
-			String msg = "PC just hit the air, but it was not very effective. ";
-			floor.changemsg(msg);
+			floor.changemsg("PC just hit the air, but it was not very effective. ");
 			return;
 		}
 
@@ -146,12 +178,6 @@ class PlayerInteract extends Interaction {
 		{
 
 			Enemy enemy = (Enemy) target;
-
-			if (enemy.getRep() == 'M')
-			{
-				Merchant merchant = (Merchant) target;
-				merchant.changestatus();
-			}
 
 			float enemydef = enemy.getDef();
 			float playeratk = player.getatk();
@@ -164,12 +190,7 @@ class PlayerInteract extends Interaction {
 			{
 				int money = enemy.giveGold();
 				player.changeGold(enemy.giveGold());
-				if (enemy.getRep() == 'M')
-				{
-					floor.clearCell(tr, tc);
-					floor.spawnGold(tr, tc);
-				}
-				else if (enemy.getRep() == 'D')
+				if (enemy.getRep() == 'D')
 				{
 					Dragon dragon =(Dragon) enemy;
 					dragon.notify();
@@ -208,5 +229,24 @@ class PlayerInteract extends Interaction {
 			floor.changemsg(msg);
 		}
 	}
+
+    public void castSkill1(Player p) {
+        if (target == null)
+        {
+            floor.changemsg("PC just hit the air, but it was not very effective. ");
+            return;
+        }
+        if ("attack".equals(job.gets1Type())) {
+            int targettype = target.getType();
+            if (targettype == 1)
+            {
+                floor.changemsg(job.skill1(target, p));
+            }
+        }
+        else if ("buff".equals(job.gets1Type())) {
+            floor.changemsg(job.skill1(null, p));
+        }
+
+    }
 
 }

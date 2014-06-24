@@ -12,7 +12,6 @@ public class Player implements Obj {
 	String races;
 	Race race = null;
 	Buff buff = null;
-    Job job = null;
 	int[] potionTrack = null;
 	PlayerInteract action = null;
 	static Player player = null;
@@ -142,20 +141,8 @@ public class Player implements Obj {
         def = (int) Math.round(dex * Math.pow(1.03, dex));
     }
 
-    public void setJob(int choice) {
-        if (choice == JobClass.KNIGHT.ordinal())
-        {
-            job = new Rogue(choice, "Young Money", "WestSide");
-        }
-        else if (choice == JobClass.ROGUE.ordinal())
-        {
-            job = new Rogue(choice, "Young Money", "WestSide");
-        }
-        else if (choice == JobClass.CRUSADER.ordinal())
-        {
-            job = new Rogue(choice, "Young Money", "WestSide");
-        }
-    }
+    public void setJob(int choice) { action.setJob(choice); }
+
 
     /*
      *  Getters
@@ -210,7 +197,16 @@ public class Player implements Obj {
 		action.usePotion(this);
 	}
 
-    public String getJob() { return job.getname(); }
+    public String getJob() { return action.getJobName(); }
+
+    public String getS1() { return action.getS1(); }
+
+    public String getS1Type() { return action.getS1Type(); }
+
+    public String getS2() { return action.getS2(); }
+
+    public String getS2Type() { return action.getS2Type(); }
+
 
     /*
         Methods
@@ -238,8 +234,8 @@ public class Player implements Obj {
         action.move(this);
     }
 
-    public void castSkill() {
-        job.skill1(null);
+    public void castSkill(String dir) {
+        action.setDirection(dir);
+        action.castSkill1(this);
     }
-
 }

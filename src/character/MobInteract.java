@@ -93,7 +93,7 @@ public class MobInteract extends Interaction {
 		}
 		else
 		{
-			floor.addmsg(enemy.getRep() + " missed attack on PC. ");
+			floor.addmsg(enemy.getName() + " missed attack on PC. ");
 		}
 	}
 
