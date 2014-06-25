@@ -233,7 +233,7 @@ public class App {
 		for (int x = 0; x < 50; x++)
 			System.out.println('\n');
 
-		System.out.println("Welcome to CC3K");
+		System.out.println("Welcome to CC3K ver 0.1.0");
 		System.out.println("Choose your race:");
 		System.out.println("Human(h), Elves(e), Dwarf(d), Orc(o)");
 		System.out.println();
