@@ -16,6 +16,7 @@ Written from Louis &amp; Danny's code
     - Add some in-game items
 - Floor rework
 - Race rework
+- Potion rework
 
 # Instructions
 
@@ -35,7 +36,8 @@ Written from Louis &amp; Danny's code
 
 ## Use potion
 ~~- input 'u' followed by direction <br>~~
-~~- Example: u no = use the potion at north~~
+~~- Example: u no = use the potion at north~~<br>
+**Using potion will have no effect for now**
 
 ## Visit town
 - input "town" to visit the town and modify player's attributes
