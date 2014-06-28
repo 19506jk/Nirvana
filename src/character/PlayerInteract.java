@@ -18,17 +18,28 @@ class PlayerInteract extends Interaction {
      */
 
     public void setJob(int choice) {
-        if (choice == JobClass.KNIGHT.ordinal())
+        String s1Info, s2Info, passive;
+
+        if (choice == JobClass.SWORDSMAN.ordinal())
         {
-            job = new Knight(choice, "Stun", "WestSide", "attack", "buff");
+            s1Info = "A heavy attack against the enemy, stuns it for 2 rounds";
+            s2Info = "Focus in the battle, increases attack by 10 for 5 rounds";
+            passive = "none";
+            job = new Swordsman(choice, "Bash", "Concentrate", "attack", "buff", s1Info, s2Info, passive);
         }
         else if (choice == JobClass.ROGUE.ordinal())
         {
-            job = new Rogue(choice, "Double Stab", "WestSide", "attack", "buff");
+            s1Info = "Attacks the enemy twice";
+            s2Info = "Adds 15 attack to normal attack. Casts poison on the enemy, which decreases its health by 3% for 3 rounds";
+            passive = "Monsters have 75% chance to miss Player instead of 65%";
+            job = new Rogue(choice, "Double Stab", "Envenom", "attack", "attack", s1Info, s2Info, passive);
         }
-        else if (choice == JobClass.CRUSADER.ordinal())
+        else if (choice == JobClass.ACOLYTE.ordinal())
         {
-            job = new Rogue(choice, "Young Money", "WestSide", "combat", "buff");
+            s1Info = "Casts a holy attack on the enemy";
+            s2Info = "Recovers 20 HP";
+            passive = "none";
+            job = new Acolyte(choice, "Holy Light", "Heal", "attack", "buff", s1Info, s2Info, passive);
         }
     }
 
@@ -40,7 +51,7 @@ class PlayerInteract extends Interaction {
 
     public int getCol() { return pc; }
 
-    public String getJobName() { return job.getname(); }
+    public String getJobName() { return job.getName(); }
 
     public String getS1() { return job.gets1(); }
 
@@ -49,6 +60,12 @@ class PlayerInteract extends Interaction {
     public String getS2() { return job.gets2(); }
 
     public String getS2Type() { return job.gets2Type(); }
+
+    public String getS1Info() { return job.getS1Info(); }
+
+    public String getS2Info() { return job.getS2Info(); }
+
+    public String getPassive() { return job.getPassive(); }
 
     /*
         Methods
@@ -63,8 +80,8 @@ class PlayerInteract extends Interaction {
 		Player player = (Player)o;
 		if (target != null)
 		{
-			int targettype = target.getType();
-			if (targettype == 2)
+			int targetType = target.getType();
+			if (targetType == 2)
 			{
 				Gold gold = (Gold)target;
 				if (gold.getGoldType() == 3)
@@ -106,51 +123,16 @@ class PlayerInteract extends Interaction {
 			Square ftype = floor.getFloorType(tr, tc);
 			if (ftype == Square.TILE || ftype == Square.DOOR || ftype == Square.PASSAGE)
 			{
-				String plist = "";
-				Obj[] surround = floor.scanPotion(tr, tc);
-				for (int i = 0; i < 8; i++) {
-					if (surround[i] != null && surround[i].getType() == 3)
-					{
-						Potion p = (Potion) surround[i];
-						if (player.checkPotion(p.getEffect().ordinal()) == 1)
-						{
-							plist += p.getName() + " ";
-						}	
-
-						else
-						{
-							plist += "an unknown ";
-						}
-					}
-				}
-
 				floor.setObj(tr,tc, o);
 				floor.setObj(pr, pc, null);
 				pr = tr;
 				pc = tc;
 
-				if (plist.equals(""))
-				{
-					String msg;
-					msg = "PC moves " + direction + ". "; 
-					floor.changemsg(msg);
-				}
-			
-				else
-				{
-					String msg;
-					plist += "potion. ";
-					msg = "PC moves " + direction + " and sees " + plist;
-					floor.changemsg(msg);
-				}	
-
-				for (int i = 0; i < 6; i++) {
-					surround[i] = null;
-				}
-				surround = null;
-					
+                String msg;
+                msg = "PC moves " + direction + ". ";
+                floor.changemsg(msg);
 			}
-			
+
 			else if (ftype == Square.HORIW || ftype == Square.VERTIW)
 			{
 				String msg = "PC tried to walk into a wall, but wall pushed PC back. ";
@@ -165,6 +147,31 @@ class PlayerInteract extends Interaction {
 		}
 	}
 
+    private String endBattle(Enemy enemy, Player player) {
+        if (enemy.getHP() > 0) {
+            return "";
+        }
+
+        int money = enemy.giveGold();
+        if ("ROGUE".equals(player.getJob())) {
+            money = (int) (money * 1.5);
+        }
+
+        player.changeGold(enemy.giveGold());
+
+        if (enemy.getRep() == 'D')
+        {
+            Dragon dragon =(Dragon) enemy;
+            dragon.notify();
+            floor.clearCell(tr, tc);
+        }
+        else
+        {
+            floor.clearCell(tr, tc);
+        }
+        return "PC gets " + money + " Gold.";
+    }
+
 	public void combat(Obj o) {
 		Player player = (Player) o;
 		if (target == null)
@@ -173,78 +180,68 @@ class PlayerInteract extends Interaction {
 			return;
 		}
 
-		int targettype = target.getType();
-		if (targettype == 1)
+		int targetType = target.getType();
+		if (targetType == 1)
 		{
 
 			Enemy enemy = (Enemy) target;
 
-			float enemydef = enemy.getDef();
-			float playeratk = player.getatk();
-			int damage = (int) Math.ceil(((100 / (100 + enemydef))) * playeratk);
-			enemy.changehp(damage);
+			float enemyDef = enemy.getDef();
+			float playerAtk = player.getAtk();
+			int damage = (int) Math.ceil(((100 / (100 + enemyDef))) * playerAtk);
+			enemy.changeHp(damage);
 			String msg = "PC deals " + damage + " to " + enemy.getRep() + ". (" + enemy.getHP() + " HP) ";
 			floor.changemsg(msg);
 
 			if (enemy.getHP() <= 0)
 			{
-				int money = enemy.giveGold();
-				player.changeGold(enemy.giveGold());
-				if (enemy.getRep() == 'D')
-				{
-					Dragon dragon =(Dragon) enemy;
-					dragon.notify();
-					floor.clearCell(tr, tc);
-				}
-				else
-				{
-					floor.clearCell(tr, tc);
-				}
-
-				msg += "PC gets " + money + " Gold.";
-				floor.changemsg(msg);
+                msg += endBattle(enemy, player);
+                floor.changemsg(msg);
 			}
 
 		}
 	}
 
-	public void usePotion(Player p) {
-		if (target == null)
-		{
-			return;
-		}
-		int targettype = target.getType();
-		if (targettype == 3)
-		{
-			Potion potion = (Potion) target;
-			PotionType type = potion.getEffect();
-			if (p.checkPotion(type.ordinal()) == 0)
-			{
-				p.trackPotion(type.ordinal());
-			}
-			String name = potion.getName();
-			p.changebuff(potion.getEffect(), potion.getVal());
-			floor.clearCell(tr, tc);
-			String msg = "PC uses " + name + ". ";
-			floor.changemsg(msg);
-		}
-	}
+	public void usePotion(Player p) {}
 
-    public void castSkill1(Player p) {
-        if (target == null)
-        {
-            floor.changemsg("PC just hit the air, but it was not very effective. ");
-            return;
+    public void castSkill(Player p, int choice) {
+        String skillType;
+
+        if (choice == 1) {
+            skillType = getS1Type();
         }
-        if ("attack".equals(job.gets1Type())) {
-            int targettype = target.getType();
-            if (targettype == 1)
+        else {
+            skillType = getS2Type();
+        }
+
+        if ("attack".equals(skillType)) {
+            if (target == null)
             {
-                floor.changemsg(job.skill1(target, p));
+                floor.changemsg("PC just hit the air, but it was not very effective. ");
+                return;
+            }
+
+            int targetType = target.getType();
+            if (targetType == 1)
+            {
+                String msg;
+                if (choice == 1) {
+                    msg = job.skill1(target, p);
+                }
+                else {
+                    msg = job.skill2(target, p);
+                }
+                msg +=  endBattle((Enemy)target, p);
+                floor.changemsg(msg);
             }
         }
-        else if ("buff".equals(job.gets1Type())) {
-            floor.changemsg(job.skill1(null, p));
+        else if ("buff".equals(skillType)) {
+            if (choice == 1) {
+                floor.changemsg(job.skill1(p));
+            }
+            else {
+                floor.changemsg(job.skill2(p));
+            }
         }
 
     }

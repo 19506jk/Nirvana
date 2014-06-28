@@ -3,6 +3,20 @@ CC3K-new
 
 Written from Louis &amp; Danny's code
 
+# Current Progress
+- Improve Class System
+    - Add MP for player and MP costs for the skills
+    - Make use of Player's intelligence attribute
+    - Add passive skill & description for Swordsman and Acolyte
+    - Add range classes (i.e Mages, Archer)
+    - Add AOE skills
+- Implement Inventory System
+    - Add equipments
+    - Rework potion (Currently disabled in game)
+    - Add some in-game items
+- Floor rework
+- Race rework
+
 # Instructions
 
 ## Move
@@ -20,8 +34,8 @@ Written from Louis &amp; Danny's code
 - Example: a no = attack north
 
 ## Use potion
-- input 'u' followed by direction <br>
-- Example: u no = use the potion at north
+~~- input 'u' followed by direction <br>~~
+~~- Example: u no = use the potion at north~~
 
 ## Visit town
 - input "town" to visit the town and modify player's attributes
@@ -29,4 +43,3 @@ Written from Louis &amp; Danny's code
 ## Job system
 - input 'job' to see detail information about the current class<br>
 - input 's1' followed by direction to cast skill 1, etc<br><br>
-**So far only Rogue and Knight's first skill are working proerply**

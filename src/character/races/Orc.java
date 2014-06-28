@@ -1,7 +1,6 @@
 package character.races;
 
 import character.Buff;
-import character.races.Race;
 
 public class Orc implements Race {
 	int goldcount;
@@ -34,11 +33,11 @@ public class Orc implements Race {
 	}
 
 	public void addbuffatk(Buff b, int amt) {
-		b.setatk(amt);
+		b.setAtk(amt);
 	}
 
 	public void addbuffdef(Buff b, int amt) {
-		b.setdef(amt);
+		b.setDef(amt);
 	}
 
 }

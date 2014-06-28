@@ -1,7 +1,6 @@
 package character.races;
 
 import character.Buff;
-import character.races.Race;
 
 public class Elves implements Race {
 
@@ -14,12 +13,12 @@ public class Elves implements Race {
 	}
 
 	public void addbuffatk(Buff b, int amt) {
-		b.setatk(Math.abs(amt));
+		b.setAtk(Math.abs(amt));
 
 	}
 
 	public void addbuffdef(Buff b, int amt) {
-		b.setdef(Math.abs(amt));
+		b.setDef(Math.abs(amt));
 
 	}
 
