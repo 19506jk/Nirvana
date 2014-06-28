@@ -1,5 +1,5 @@
 package enums;
 
 public enum JobClass {
-    KNIGHT, ROGUE, CRUSADER;
+    SWORDSMAN, ROGUE, ACOLYTE
 }

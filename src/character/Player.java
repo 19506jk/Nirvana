@@ -1,9 +1,6 @@
 package character;
 
-import character.jobs.*;
 import character.races.*;
-import enums.PotionType;
-import enums.JobClass;
 import floor.Floor;
 
 public class Player implements Obj {
@@ -12,13 +9,11 @@ public class Player implements Obj {
 	String races;
 	Race race = null;
 	Buff buff = null;
-	int[] potionTrack = null;
-	PlayerInteract action = null;
+    PlayerInteract action = null;
 	static Player player = null;
 
 	private Player(int choice) {
 		gold = 0;
-		potionTrack = new int[16];
 		buff = new Buff();
 		action = new PlayerInteract();
 
@@ -54,20 +49,14 @@ public class Player implements Obj {
 			race = new Elves();
 		}
 
-		if (choice == 3)
-		{
-			hp = 180;
+		if (choice == 3) {
+            hp = 180;
             str = 5;
             dex = 5;
             intel = 5;
-			races = "Orc";
-			race = new Orc();
-		}
-		
-		for (int i = 0; i < 6; i++)
-		{
-			potionTrack[i] = 0;
-		}
+            races = "Orc";
+            race = new Orc();
+        }
 
         updateAtk();
         updateDef();
@@ -93,36 +82,29 @@ public class Player implements Obj {
 		gold += race.addgold(amt);
 	}
 
-	public void changebuff(PotionType type, int amt) {
-		if (type == PotionType.RH || type == PotionType.PH)
-		{
-			if (races.equals("Elves"))
-			{
-				hp += Math.abs(amt);
-			}
-			else
-			{
-				hp += amt;
-			}
+	public void changeBuff(String name, int rounds, int amt) {
+        if (name.equals("atk")) {
+            buff.setAtk(amt);
+        }
+        else {
+            buff.setDef(amt);
+        }
 
-			if (hp > race.maxHP())
-			{
-				hp = race.maxHP();
-			}
-		}
+        buff.setTimer(name, rounds);
+        buff.setEffects(name, amt);
+    }
 
-		if (type == PotionType.BA || type == PotionType.WA)
-		{
-			race.addbuffatk(buff, amt);
-		}
-		if (type == PotionType.BD || type == PotionType.WD)
-		{
-			race.addbuffdef(buff, amt);
-		}
-	}
-
-    public void changehp(int num) {
+    public void changeHp(int num) {
         hp -= num;
+    }
+
+    public void addHp(int num) {
+        if (hp < race.maxHP()) {
+            hp += num;
+            if (hp > race.maxHP()) {
+                hp = race.maxHP();
+            }
+        }
     }
 
     public void setFloor(Floor floor) {
@@ -168,17 +150,17 @@ public class Player implements Obj {
         return 0;
     }
 
-	public int getatk() {
-		return atk + buff.getatk();
+	public int getAtk() {
+		return atk + buff.getAtk();
 	}
 
-	public int getdef() {
-		return def + buff.getdef();
+	public int getDef() {
+		return def + buff.getDef();
 	}
 
-	public int gethp() { return hp; }
+	public int getHp() { return hp; }
 
-	public int getgold() { return gold; }
+	public int getGold() { return gold; }
 
     public int getStr() { return str; }
 
@@ -192,11 +174,6 @@ public class Player implements Obj {
 
 	public int getpc() { return action.getCol(); }
 
-	public void getPotion(String dir) {
-		action.setDirection(dir);
-		action.usePotion(this);
-	}
-
     public String getJob() { return action.getJobName(); }
 
     public String getS1() { return action.getS1(); }
@@ -207,35 +184,36 @@ public class Player implements Obj {
 
     public String getS2Type() { return action.getS2Type(); }
 
+    public String getS1Info() { return action.getS1Info(); }
+
+    public String getS2Info() { return action.getS2Info(); }
+
+    public String getPassive() { return action.getPassive(); }
+
 
     /*
         Methods
      */
 
-    public void trackPotion(int type) {
-        potionTrack[type] = 1;
-    }
-
-    public int checkPotion(int type) {
-        return potionTrack[type];
-    }
-
-    public void resetbuff() {
+    public void resetBuff() {
         buff = new Buff();
     }
 
     public void attack(String dir) {
+        buff.countDown();
         action.setDirection(dir);
         action.combat(this);
     }
 
-    public void makemove(String dir) {
+    public void makeMove(String dir) {
+        buff.countDown();
         action.setDirection(dir);
         action.move(this);
     }
 
-    public void castSkill(String dir) {
+    public void castSkill(String dir, int choice) {
+        buff.countDown();
         action.setDirection(dir);
-        action.castSkill1(this);
+        action.castSkill(this, choice);
     }
 }

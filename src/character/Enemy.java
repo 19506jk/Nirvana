@@ -1,14 +1,17 @@
 package character;
 
 import floor.Floor;
+
+import java.util.HashMap;
 import java.util.Random;
 import enums.MobType;
 
 public class Enemy implements Obj {
 	
 	MobType type;
-	int hp, atk, def, gold, rep, level, stunned;
+	int hp, maxHp, atk, def, gold, rep, level;
     String name;
+    HashMap<String, Integer> deBuff = new HashMap<String, Integer>();
 	boolean moved;
 	MobInteract action = null;
 	
@@ -16,11 +19,13 @@ public class Enemy implements Obj {
 		this.type = MobType.values()[type];
 		moved = false; 
 		action = new MobInteract();
-        stunned = 0;
+        deBuff.put("stun", 0);
+        deBuff.put("poison", 0);
 
 		if (type == MobType.VAMP.ordinal())
 		{
 			hp = 50;
+			maxHp = 50;
 			atk = 25;
 			def = 25;
             level = 3;
@@ -30,6 +35,7 @@ public class Enemy implements Obj {
 		if (type == MobType.WEREW.ordinal())
 		{
 			hp = 120;
+            maxHp = 120;
 			atk = 30;
 			def = 5;
 			rep = 'W';
@@ -38,6 +44,7 @@ public class Enemy implements Obj {
 		if (type == MobType.TROLL.ordinal())
 		{
 			hp = 120;
+            maxHp = 120;
 			atk = 25;
 			def = 15;
             level = 4;
@@ -47,6 +54,7 @@ public class Enemy implements Obj {
 		if (type == MobType.GOBLIN.ordinal())
 		{
 			hp = 70;
+            maxHp = 70;
 			atk = 5;
 			def = 10;
             level = 1;
@@ -56,6 +64,7 @@ public class Enemy implements Obj {
 		if (type == MobType.PHOEN.ordinal())
 		{
 			hp = 50;
+            maxHp = 50;
 			atk = 35;
 			def = 20;
             level = 5;
@@ -65,6 +74,7 @@ public class Enemy implements Obj {
 		if (type == MobType.MERCH.ordinal())
 		{
 			hp = 30;
+            maxHp = 30;
 			atk = 70;
 			def = 5;
             level = 3;
@@ -74,6 +84,7 @@ public class Enemy implements Obj {
 		if (type == MobType.DRAGON.ordinal())
 		{
 			hp = 150;
+            maxHp = 150;
 			atk = 20;
 			def = 20;
             level = 2;
@@ -87,7 +98,7 @@ public class Enemy implements Obj {
         Getters
      */
 
-	public void changehp(int amt) { hp -= amt;}
+	public void changeHp(int amt) { hp -= amt;}
 
 	public int getAtk() { return atk; }
 
@@ -107,8 +118,6 @@ public class Enemy implements Obj {
 
     public String getName() { return name; }
 
-    public int getStunned() { return stunned; }
-
     /*
         Setters
      */
@@ -119,19 +128,27 @@ public class Enemy implements Obj {
 
     public void setFloor(Floor f) { action.setFloor(f); }
 
-    public void setStunned(int n) { stunned = n; }
+    public void setDeBuff(String name, int rounds) {
+        deBuff.put(name, rounds);
+    }
 
     /*
         Methods
      */
 
-	public void randmove() {
+	public void randMove() {
+        int stunned = deBuff.get("stun");
+        int poisoned = deBuff.get("poison");
+
+        if (poisoned > 0 ) {
+            hp = (int) (hp * 0.97);
+        }
 		if (moved)
 		{
 			return;
 		}
         else if (stunned > 0) {
-            stunned--;
+            deBuff.put("stun", stunned - 1);
             return;
         }
 		else if (action.scan() != null)

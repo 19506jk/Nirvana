@@ -80,12 +80,18 @@ public class MobInteract extends Interaction {
 	public void combat(Obj o) {
 		Enemy enemy = (Enemy) o;
 		Player player = (Player) (floor.scanPlayer(pr, pc));
-		if ((int) (Math.random() * 2) == 1)
+        int chance = (int) (Math.random() * 3);
+
+        if ("rogue".equals(player.getJob())) {
+            chance = (int) (Math.random() * 4);
+        }
+
+		if (chance == 0)
 		{
 			float enemyatk = enemy.getAtk();
-			float playerdef = player.getdef();
+			float playerdef = player.getDef();
 			int damage = (int) (Math.ceil(((100 / (100 + playerdef))) * enemyatk));
-			player.changehp(damage);
+			player.changeHp(damage);
 			String msg = "";
 			msg += enemy.getRep();	
 			msg += " deals " + damage + " to PC. ";

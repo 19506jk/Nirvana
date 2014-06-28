@@ -13,7 +13,7 @@ public class Merchant extends Enemy {
 
 	public boolean status() { return attacked; }
 
-	public void randmove() {
+	public void randMove() {
 		if (moved == true)
 		{
 			return;

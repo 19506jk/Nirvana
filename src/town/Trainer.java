@@ -28,7 +28,7 @@ public class Trainer {
 		int playerGold;
 		setUp();
 		do{
-			playerGold = Player.getPlayer().getgold();
+			playerGold = Player.getPlayer().getGold();
 			
 			displayStat();
 			System.out.println();
