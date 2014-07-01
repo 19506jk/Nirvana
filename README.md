@@ -1,8 +1,3 @@
-CC3K-new
-========
-
-Written from Louis &amp; Danny's code
-
 # Current Progress
 - Improve Class System
     - Add MP for player and MP costs for the skills
