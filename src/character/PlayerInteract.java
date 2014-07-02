@@ -147,12 +147,6 @@ class PlayerInteract extends Interaction {
 
 			Enemy enemy = (Enemy) target;
 
-			if (enemy.getRep() == 'M')
-			{
-				Merchant merchant = (Merchant) target;
-				merchant.changestatus();
-			}
-
 			float enemydef = enemy.getDef();
 			float playeratk = player.getatk();
 			int damage = (int) Math.ceil(((100 / (100 + enemydef))) * playeratk);

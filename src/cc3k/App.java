@@ -51,7 +51,7 @@ public class App {
 				}
 				else{
 					level++;
-					floor.resetFloor();
+					floor.ascend();
 					floor.spawn();
 
 					ply.resetbuff();
@@ -101,26 +101,12 @@ public class App {
 			if (player.gethp() <= 0){
 				System.out.println("You Died");
 				System.out.println("Score: " + calcScore(player));
-				System.out.println("Play again? y/n");
-							
-				cmd = input.next();
-							
-				if ("y".equals(cmd))
-					cmd = "r";
-				else
-					cmd = "q";
+				cmd = "q";
 			}
 			else{
 				if(won){
 					won = false;
-					System.out.println("Play again? y/n");
-
-					cmd = input.next(); 
-
-					if ("y".equals(cmd))
-						cmd = "r";
-					else
-						cmd = "q";
+					cmd = "q";
 				}
 				else
 					cmd = input.next();
@@ -130,14 +116,8 @@ public class App {
 			//cmd recognition and action
 			//
 			
-			if ("q".equals(cmd)){
-				pFloor.resetFloor();
+			if ("q".equals(cmd) || "r".equals(cmd)){
 				break;
-			}
-			else if ("r".equals(cmd)){
-				pFloor.resetFloor();
-				player = newGame();
-				ascended = false;
 			}
 			else if ("town".equals(cmd)){
 				MainInteraction.visitShop();

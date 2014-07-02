@@ -55,14 +55,6 @@ public class Enemy implements Obj {
             level = 5;
 			rep = 'X';
 		}
-		if (type == MobType.MERCH.ordinal())
-		{
-			hp = 30;
-			atk = 70;
-			def = 5;
-            level = 3;
-			rep = 'M';
-		}
 		if (type == MobType.DRAGON.ordinal())
 		{
 			hp = 150;

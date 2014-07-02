@@ -94,6 +94,4 @@ class Interaction {
 		floor = f;
 	}
 	
-	
-
 }
