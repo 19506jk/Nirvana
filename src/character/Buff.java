@@ -25,6 +25,10 @@ public class Buff {
         return def;
     }
 
+    public int getBuffTimer(String name) {
+        return timer.get(name);
+    }
+
     /*
         Setters
      */
@@ -59,8 +63,11 @@ public class Buff {
                 else {
                     def -= amt;
                 }
+                timer.put(entry.getKey(), rounds);
             }
-            timer.put(entry.getKey(), rounds);
+            else if (rounds > 0) {
+                 timer.put(entry.getKey(), rounds);
+            }
         }
     }
 

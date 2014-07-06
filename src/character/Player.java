@@ -14,8 +14,14 @@ public class Player implements Obj {
 
 	private Player(int choice) {
 		gold = 0;
-		buff = new Buff();
 		action = new PlayerInteract();
+
+        // Initialize buff timer
+        buff = new Buff();
+        buff.setTimer("atk", 0);
+        buff.setTimer("def", 0);
+        buff.setEffects("atk", 0);
+        buff.setEffects("def", 0);
 
         //TODO: need to have different stats for different race
 		
@@ -197,6 +203,10 @@ public class Player implements Obj {
 
     public void resetBuff() {
         buff = new Buff();
+    }
+
+    public int checkBuffTimer(String name) {
+        return buff.getBuffTimer(name);
     }
 
     public void attack(String dir) {
