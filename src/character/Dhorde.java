@@ -106,7 +106,7 @@ public class Dhorde extends Gold {
 		if (floor.scanPlayer(r, c) != null)
 		{
 			guard.changestatus();
-			guard.randmove();
+			guard.randMove();
 		}
 	}
 

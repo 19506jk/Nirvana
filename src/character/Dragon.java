@@ -18,7 +18,7 @@ class Dragon extends Enemy {
 		   horde.changestatus();
 		}
 
-	public void randmove() {
+	public void randMove() {
 			if (action.scan() != null)
 			{
 				playernear = true;

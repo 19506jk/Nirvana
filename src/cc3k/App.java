@@ -1,20 +1,16 @@
 package cc3k;
 
 import character.*;
+import character.jobs.PrintInfo;
 import floor.*;
 import java.util.*;
-import enums.JobClass;
 import town.MainInteraction;
 
 
 /*
- * CC3K Ver 0.0.1
+ * CC3K Ver 0.1.1
  * Danny & Louis version
  * This is the main App class, still under construction
- * All the required class still needs to be converted from C++ to java
- * Lots of static methods from C++ requires to be fixed, but not sure how
- * due to the design of those static class methods have not been implemented yet.
- * Game CANNOT be run.
  */
 public class App {
 
@@ -25,16 +21,17 @@ public class App {
 	private boolean ascended = false;
 	private Floor pFloor = null;
 	Scanner input = new Scanner(System.in);
+    private PrintInfo info = new PrintInfo();
 
 	
 	private int calcScore(Player player){
 		int score;
 		if (player.getRace().equals("Human")){
-			score = (int) (player.getgold() * 1.5);
+			score = (int) (player.getGold() * 1.5);
 		}
 		else
         {
-            score = player.getgold();
+            score = player.getGold();
         }
 
 		return score;
@@ -54,7 +51,7 @@ public class App {
 					floor.ascend();
 					floor.spawn();
 
-					ply.resetbuff();
+					ply.resetBuff();
 					floor.changemsg("Player character has spawned ");
 					ascended = true;
 					return true;
@@ -98,7 +95,7 @@ public class App {
 			//
 			// Checking for death/victory
 			//
-			if (player.gethp() <= 0){
+			if (player.getHp() <= 0){
 				System.out.println("You Died");
 				System.out.println("Score: " + calcScore(player));
 				cmd = "q";
@@ -123,8 +120,29 @@ public class App {
 				MainInteraction.visitShop();
 			}
 
-            else if ("s".equals(cmd)){
-                player.castSkill();
+            else if ("s1".equals(cmd)) {
+                if ("attack".equals(player.getS1Type())) {
+                    direc = input.next();
+                    player.castSkill(direc, 1);
+                }
+                else {
+                    player.castSkill("", 1);
+                }
+            }
+
+            else if ("s2".equals(cmd)) {
+                if ("attack".equals(player.getS2Type())) {
+                    direc = input.next();
+                    player.castSkill(direc, 2);
+                }
+                else {
+                    player.castSkill("", 2);
+                }
+            }
+
+            else if ("job".equals(cmd)) {
+                info.listSkills();
+                continue;
             }
 
 			else if ("u".equals(cmd) || "a".equals(cmd)){
@@ -134,7 +152,8 @@ public class App {
 				}
 				ascended = false;
 				if ("u".equals(cmd)){
-					player.getPotion(direc);
+                    // TODO
+					continue;
 				}
 				else
 					player.attack(direc);
@@ -160,7 +179,7 @@ public class App {
 					else
 						tempObj = pFloor.getObj(r-1, c-1);
 					if(!checkStair(pFloor, tempObj, player)){
-						player.makemove(cmd);
+						player.makeMove(cmd);
 						ascended = false;
 					}				
 				}   
@@ -186,7 +205,7 @@ public class App {
 							if (tempObj != null){
 								if (tempObj.getType() == 1){
 									Enemy enemy = (Enemy) tempObj;
-									enemy.randmove();
+									enemy.randMove();
 								}
 							}
 						}
@@ -198,18 +217,18 @@ public class App {
 	}
 	
 	/*
-	 This function may have lots of pass by value/reference error occuring, due to the c++
+	 This function may have lots of pass by value/reference error occurring, due to the c++
 	 version applied a lot of reference techniques.
 	 */
 	private Player newGame(){
 
 		Player player = null;
 		String cmd;
-		boolean badinput;
+		boolean badInput;
 		for (int x = 0; x < 50; x++)
 			System.out.println('\n');
 
-		System.out.println("Welcome to CC3K");
+		System.out.println("Welcome to CC3K ver 0.1.1");
 		System.out.println("Choose your race:");
 		System.out.println("Human(h), Elves(e), Dwarf(d), Orc(o)");
 		System.out.println();
@@ -225,10 +244,10 @@ public class App {
 					!("q".equals(cmd)) &&
 					!("?".equals(cmd))){
 				System.out.println("Bad Input, try again\n");
-				badinput = true;
+				badInput = true;
 			}
 			else{
-				badinput = false;
+				badInput = false;
 				Player.resetPlayer(); 
 				if ("h".equals(cmd))
 					player = Player.getPlayer(0); 
@@ -243,35 +262,35 @@ public class App {
 				}
 				else if ("?".equals(cmd)){
 					help();
-					badinput = true; 
+					badInput = true;
 					//Setting badinput here to be true is to
 					//loop the input one more time, let player rechoose.
 				}
 			}
-		}while(badinput);
+		}while(badInput);
 
         // Let player choose a job
 
         System.out.println("Choose your job:");
-        System.out.println("Knight(0), Rogue(1), Crusader(2)");
+        System.out.println("Swordsman(0), Rogue(1), Acolyte(2)");
         cmd = input.next();
-        badinput = true;
+        badInput = true;
 
-        while(badinput) {
-            if ("0".equals(cmd))
-            {
-                player.setJob(0);
+        while(badInput) {
+            if (player != null) {
+                if ("0".equals(cmd)) {
+                    player.setJob(0);
 
+                } else if ("1".equals(cmd)) {
+                    player.setJob(1);
+                } else if ("2".equals(cmd)) {
+                    player.setJob(2);
+                }
+                badInput = false;
             }
-            else if ("1".equals(cmd))
-            {
-                player.setJob(1);
+            else {
+                badInput = true;
             }
-            else if ("2".equals(cmd))
-            {
-                player.setJob(2);
-            }
-            badinput = false;
         }
 
 		level = 1;
@@ -282,24 +301,25 @@ public class App {
 		return player;
 	}
 	
-	private void display(){
+	private void display() {
 		Player player = Player.getPlayer(); //Static method to be fixed
 		pFloor.display();
 		System.out.printf("Race: " + player.getRace() + " ");
-        System.out.printf("Job: " + player.getJob().toLowerCase());
-		System.out.printf(" Gold " + player.getgold());
+		System.out.printf(" Gold " + player.getGold());
 		System.out.println("\t\t\t\t\t\tFloor " + level);
-		System.out.println("HP: " + player.gethp());
-		System.out.println("Atk: " + player.getatk());
-		System.out.println("Def: " + player.getdef());
+		System.out.println("HP: " + player.getHp());
+		System.out.println("Atk: " + player.getAtk());
+		System.out.println("Def: " + player.getDef());
         System.out.println("Str: " + player.getStr() + "  Dex: " + player.getDex() + " Int: " + player.getInt());
-		System.out.print("Action: ");
+        System.out.println("Job: " + player.getJob().toLowerCase());
+        System.out.println("s1. " + player.getS1() + "   s2. " + player.getS2());
+        System.out.print("Action: ");
 		pFloor.showMsg();
 		System.out.println();
 		pFloor.clearmsg();
 	}
 
-	private void help(){
+	private void help() {
 		System.out.println("Move: ");
 		System.out.println("no = move north");
 		System.out.println("ea = move east");
@@ -316,6 +336,9 @@ public class App {
 		System.out.println();
 		System.out.println("Use potion: ");
 		System.out.println("input 'u' followed by direction");
+        System.out.println();
+        System.out.println("Cast skill: ");
+        System.out.println("input 's1' or 's2' followed by direction");
 	}
 	
 	public static void main(String[] args) {
