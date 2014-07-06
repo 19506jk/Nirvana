@@ -3,8 +3,11 @@ package floor.plans;
 import java.util.Random;
 
 import character.Enemy;
+import character.Player;
+import character.Stair;
 import enums.Square;
 import floor.Cell;
+import floor.Floor;
 
 public class F2 {
 	
@@ -48,14 +51,24 @@ public class F2 {
 		
 		Random ranGen = new Random();
 		
+		layout[4][71].setOnCell(new Stair());
+		
 		while (spawnCount < 25){
-			int ranRow, ranCol, ranEne;
+			int ranRow, ranCol;
 			do{
 				ranRow = ranGen.nextInt(maxRow);
 				ranCol = ranGen.nextInt(maxCol);
-			}while(layout[ranRow][ranCol].getType() != Square.TILE);
+			}while(layout[ranRow][ranCol].getType() != Square.TILE || layout[ranRow][ranCol].getOnCell() != null);
 			
-			layout[ranRow][ranCol].setOnCell(new Enemy(ranGen.nextInt(5)));
+			Enemy enemy = new Enemy(ranGen.nextInt(5));
+			enemy.setCoord(ranRow, ranCol);
+			enemy.setFloor(Floor.getInst());
+			layout[ranRow][ranCol].setOnCell(enemy);
+			spawnCount++;
 		}
+		
+		layout[10][5].setOnCell(Player.getPlayer());
+		Player.getPlayer().setCoord(10, 5);
+		Player.getPlayer().setFloor(Floor.getInst());
 	}
 }
