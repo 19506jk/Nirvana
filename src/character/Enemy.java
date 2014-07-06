@@ -167,4 +167,8 @@ public class Enemy implements Obj {
         return (int) (rand.nextGaussian() * (0.7 * lvl) + (5 * lvl));
     }
 
+    public int checkBuffTimer(String name) {
+        return deBuff.get(name);
+    }
+
 }
