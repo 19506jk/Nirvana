@@ -10,6 +10,7 @@
     - Rework potion (Currently disabled in game)
     - Add some in-game items
 - Floor rework
+    - Basic architecture is done
 - Race rework
 - Potion rework
 
