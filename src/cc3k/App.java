@@ -1,7 +1,6 @@
 package cc3k;
 
 import character.*;
-import character.jobs.PrintInfo;
 import floor.*;
 import java.util.*;
 import town.MainInteraction;
@@ -21,7 +20,6 @@ public class App {
 	private boolean ascended = false;
 	private Floor pFloor = null;
 	Scanner input = new Scanner(System.in);
-    private PrintInfo info = new PrintInfo();
 
 	
 	private int calcScore(Player player){
@@ -141,7 +139,7 @@ public class App {
             }
 
             else if ("job".equals(cmd)) {
-                info.listSkills();
+                player.listSkills();
                 continue;
             }
 
@@ -302,12 +300,13 @@ public class App {
 	}
 	
 	private void display() {
-		Player player = Player.getPlayer(); //Static method to be fixed
+		Player player = Player.getPlayer();
 		pFloor.display();
 		System.out.printf("Race: " + player.getRace() + " ");
 		System.out.printf(" Gold " + player.getGold());
 		System.out.println("\t\t\t\t\t\tFloor " + level);
 		System.out.println("HP: " + player.getHp());
+        System.out.println("MP: " + player.getMp());
 		System.out.println("Atk: " + player.getAtk());
 		System.out.println("Def: " + player.getDef());
         System.out.println("Str: " + player.getStr() + "  Dex: " + player.getDex() + " Int: " + player.getInt());

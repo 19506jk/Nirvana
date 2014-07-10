@@ -28,7 +28,7 @@ public class Orc implements Race {
 		}
 	}
 
-	public int maxHP() {
+	public int maxHp() {
 		return 180;
 	}
 

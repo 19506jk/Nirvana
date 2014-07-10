@@ -1,7 +1,7 @@
 # Current Progress
 - Improve Class System
-    - Add MP for player and MP costs for the skills
-    - Make use of Player's intelligence attribute
+    - ~~Add MP for player and MP costs for the skills~~
+    - ~~Make use of Player's intelligence attribute~~
     - Add passive skill & description for Swordsman and Acolyte
     - Add range classes (i.e Mages, Archer)
     - Add AOE skills

@@ -18,28 +18,18 @@ class PlayerInteract extends Interaction {
      */
 
     public void setJob(int choice) {
-        String s1Info, s2Info, passive;
 
         if (choice == JobClass.SWORDSMAN.ordinal())
         {
-            s1Info = "A heavy attack against the enemy, stuns it for 2 rounds";
-            s2Info = "Focus in the battle, increases attack by 10 for 5 rounds";
-            passive = "none";
-            job = new Swordsman(choice, "Bash", "Concentrate", "attack", "buff", s1Info, s2Info, passive);
+            job = new Swordsman();
         }
         else if (choice == JobClass.ROGUE.ordinal())
         {
-            s1Info = "Attacks the enemy twice";
-            s2Info = "Adds 15 attack to normal attack. Casts poison on the enemy, which decreases its health by 3% for 3 rounds";
-            passive = "Monsters have 75% chance to miss Player instead of 65%";
-            job = new Rogue(choice, "Double Stab", "Envenom", "attack", "attack", s1Info, s2Info, passive);
+            job = new Rogue();
         }
         else if (choice == JobClass.ACOLYTE.ordinal())
         {
-            s1Info = "Casts a holy attack on the enemy";
-            s2Info = "Recovers 20 HP";
-            passive = "none";
-            job = new Acolyte(choice, "Holy Light", "Heal", "attack", "buff", s1Info, s2Info, passive);
+            job = new Acolyte();
         }
     }
 
@@ -113,7 +103,7 @@ class PlayerInteract extends Interaction {
 					floor.setObj(pr, pc, null);
 					pr = tr;
 					pc = tc;
-					String msg =  "PC picked up " + amt + " gold.";
+					String msg =  "PC picked up " + amt + " gold. ";
 					floor.changemsg(msg);
 				}
 			}
@@ -202,7 +192,7 @@ class PlayerInteract extends Interaction {
 		}
 	}
 
-	public void usePotion(Player p) {}
+	public void usePotion(Player p) {} // Todo
 
     public void castSkill(Player p, int choice) {
         String skillType;

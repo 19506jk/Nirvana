@@ -8,7 +8,7 @@ public class Dwarf implements Race {
 		return golds;
 	}
 
-	public int maxHP() {
+	public int maxHp() {
 		return 100;
 	}
 
