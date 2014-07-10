@@ -20,5 +20,8 @@ public abstract class Job {
     public String getS1Info() { return s1Info; }
     public String getS2Info() { return s2Info; }
     public String getPassive() { return passive; }
+    public int getS1Cost() { return s1Cost; }
+    public int getS2Cost() { return s2Cost; }
+
 
 }

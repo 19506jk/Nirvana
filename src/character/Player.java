@@ -211,6 +211,10 @@ public class Player implements Obj {
 
     public String getPassive() { return action.getPassive(); }
 
+    public int getS1Cost() { return action.getS1Cost(); }
+
+    public int getS2Cost() { return action.getS2Cost(); }
+
 
     /*
         Methods
@@ -249,10 +253,12 @@ public class Player implements Obj {
         System.out.println();
         System.out.println("1. " + getS1());
         System.out.println("Type: " + getS1Type());
+        System.out.println("MP Cost: " + getS1Cost());
         System.out.println(getS1Info());
         System.out.println();
         System.out.println("2. " + getS2());
         System.out.println("Type: " + getS2Type());
+        System.out.println("MP Cost: " + getS2Cost());
         System.out.println(getS2Info());
         System.out.println("-------------------------------------");
     }
