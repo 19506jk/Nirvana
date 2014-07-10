@@ -6,17 +6,7 @@ import enums.JobClass;
 
 public abstract class Job {
     String name, s1, s2, s1Type, s2Type, s1Info, s2Info, passive;
-
-    public Job(int choice, String first, String second, String sType1, String sType2, String info1, String info2, String Passive) {
-        name = JobClass.values()[choice].toString();
-        s1 = first;
-        s2 = second;
-        s1Type = sType1;
-        s2Type = sType2;
-        s1Info = info1;
-        s2Info = info2;
-        passive = Passive;
-    }
+    int s1Cost, s2Cost;
 
     abstract public String skill1(Obj c, Player p);
     abstract public String skill2(Obj c, Player p);

@@ -8,7 +8,7 @@ public class Elves implements Race {
 		return golds;
 	}
 
-	public int maxHP() {
+	public int maxHp() {
 		return 140;
 	}
 

@@ -4,7 +4,7 @@ import character.races.*;
 import floor.Floor;
 
 public class Player implements Obj {
-	int hp, atk, def, gold;
+	int hp, atk, def, gold, mp;
     int str, dex, intel;
 	String races;
 	Race race = null;
@@ -28,9 +28,9 @@ public class Player implements Obj {
 		if (choice == 0)
 		{
 			hp = 140;
-            str = 5;
-            dex = 5;
-            intel = 5;
+            str = 10;
+            dex = 10;
+            intel = 10;
 			races = "Human";
 			race = new Human();
 		}
@@ -38,9 +38,9 @@ public class Player implements Obj {
 		if (choice == 1)
 		{
 			hp = 100;
-            str = 5;
-            dex = 5;
-            intel = 5;
+            str = 9;
+            dex = 11;
+            intel = 9;
 			races = "Dwarf";
 			race = new Dwarf();
 		}
@@ -48,24 +48,25 @@ public class Player implements Obj {
 		if (choice == 2)
 		{
 			hp = 140;
-            str = 5;
-            dex = 5;
-            intel = 5;
+            str = 7;
+            dex = 8;
+            intel = 13;
 			races = "Elves";
 			race = new Elves();
 		}
 
 		if (choice == 3) {
             hp = 180;
-            str = 5;
-            dex = 5;
-            intel = 5;
+            str = 11;
+            dex = 8;
+            intel = 7;
             races = "Orc";
             race = new Orc();
         }
 
         updateAtk();
         updateDef();
+        updateMp();
 	}
 	
 	public static void resetPlayer() {
@@ -104,11 +105,19 @@ public class Player implements Obj {
         hp -= num;
     }
 
+    public void changeMp(int num) {
+        mp -= num;
+
+        if (mp < 0) {
+            mp = 0;
+        }
+    }
+
     public void addHp(int num) {
-        if (hp < race.maxHP()) {
+        if (hp < race.maxHp()) {
             hp += num;
-            if (hp > race.maxHP()) {
-                hp = race.maxHP();
+            if (hp > race.maxHp()) {
+                hp = race.maxHp();
             }
         }
     }
@@ -128,6 +137,8 @@ public class Player implements Obj {
     public void updateDef() {
         def = (int) Math.round(dex * Math.pow(1.03, dex));
     }
+
+    public void updateMp() { mp = intel * 8; }
 
     public void setJob(int choice) { action.setJob(choice); }
 
@@ -165,6 +176,10 @@ public class Player implements Obj {
 	}
 
 	public int getHp() { return hp; }
+
+    public int getMaxHp() { return race.maxHp(); }
+
+    public int getMp() { return mp; }
 
 	public int getGold() { return gold; }
 
@@ -225,5 +240,20 @@ public class Player implements Obj {
         buff.countDown();
         action.setDirection(dir);
         action.castSkill(this, choice);
+    }
+
+    public void listSkills() {
+        System.out.println("Skills:");
+        System.out.println("-------------------------------------");
+        System.out.println("Passive: " + getPassive());
+        System.out.println();
+        System.out.println("1. " + getS1());
+        System.out.println("Type: " + getS1Type());
+        System.out.println(getS1Info());
+        System.out.println();
+        System.out.println("2. " + getS2());
+        System.out.println("Type: " + getS2Type());
+        System.out.println(getS2Info());
+        System.out.println("-------------------------------------");
     }
 }

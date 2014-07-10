@@ -6,17 +6,33 @@ import character.Player;
 
 
 public class Acolyte extends Job{
-    public Acolyte(int choice, String first, String second, String type1, String type2, String info1, String info2, String passive) {
-        super(choice, first, second, type1, type2, info1, info2, passive);
+    public Acolyte() {
+        name = "Acolyte";
+
+        s1 =  "Holy Light";
+        s1Type = "attack";
+        s1Info = "Casts a holy attack on the enemy";
+        s1Cost = 10;
+
+        s2 = "Heal";
+        s2Type = "buff";
+        s2Info = "Recovers 20 HP";
+        s2Cost = 15;
+
+        passive = "none";
     }
 
     public String skill1(Obj c, Player p) {
+        if (p.getMp() < s1Cost) {
+            return "Player does not have enough MP. ";
+        }
+
         Enemy enemy = (Enemy) c;
         float enemyDef = enemy.getDef();
-        float playerAtk = p.getAtk();
 
-        int damage = (int) (Math.ceil(((100 / (100 + enemyDef))) * playerAtk) * 1.5);
+        int damage = (int) (Math.ceil(((100 / (100 + enemyDef))) * p.getInt()) * 1.5);
         enemy.changeHp(damage);
+        p.changeMp(s1Cost);
 
         return "Player used " + s1 + " on " + enemy.getName() + "(" + enemy.getHP() + ")" + " and dealt " + damage + " damage. ";
     }
@@ -27,7 +43,17 @@ public class Acolyte extends Job{
     public String skill1(Player p) { return ""; }
 
     public String skill2(Player p) {
-        p.addHp(20);
-        return "Player used " + s2 + " and recovered 20 HP. ";
+        if (p.getHp() == p.getMaxHp()) {
+            return "Player is at full health. ";
+        }
+
+        if (p.getMp() < s2Cost) {
+            return "Player does not have enough MP. ";
+        }
+
+        int healAmt = (int)(p.getInt() * 1.5);
+        p.addHp(healAmt);
+        p.changeMp(s2Cost);
+        return "Player used " + s2 + " and recovered " + healAmt + " HP. ";
     }
 }
