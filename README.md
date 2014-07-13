@@ -2,17 +2,15 @@
 - Improve Class System
     - ~~Add MP for player and MP costs for the skills~~
     - ~~Make use of Player's intelligence attribute~~
-    - Add passive skill & description for Swordsman and Acolyte
     - Add range classes (i.e Mages, Archer)
     - Add AOE skills
 - Implement Inventory System
     - Add equipments
-    - Rework potion (Currently disabled in game)
     - Add some in-game items
-- Floor rework
+- **Floor rework**
     - Basic architecture is done
-- Race rework
-- Potion rework
+- **Race rework**
+- **Potion rework**
 
 # Instructions
 
@@ -33,7 +31,6 @@
 ## Use potion
 ~~- input 'u' followed by direction <br>~~
 ~~- Example: u no = use the potion at north~~<br>
-**Using potion will have no effect for now**
 
 ## Visit town
 - input "town" to visit the town and modify player's attributes

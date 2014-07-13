@@ -18,8 +18,6 @@ public class Rogue extends Job {
         s2Type = "attack";
         s2Info = "Adds 15 attack to normal attack. Casts poison on the enemy, which decreases its health by 3% for 3 rounds";
         s2Cost = 10;
-
-        passive = "Monsters have 75% chance to miss Player instead of 65%";
     }
 
     public String skill1(Obj c, Player p) {

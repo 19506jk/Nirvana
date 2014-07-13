@@ -5,7 +5,7 @@ import character.Player;
 import enums.JobClass;
 
 public abstract class Job {
-    String name, s1, s2, s1Type, s2Type, s1Info, s2Info, passive;
+    String name, s1, s2, s1Type, s2Type, s1Info, s2Info;
     int s1Cost, s2Cost;
 
     abstract public String skill1(Obj c, Player p);
@@ -19,7 +19,6 @@ public abstract class Job {
     public String gets2Type() { return s2Type; }
     public String getS1Info() { return s1Info; }
     public String getS2Info() { return s2Info; }
-    public String getPassive() { return passive; }
     public int getS1Cost() { return s1Cost; }
     public int getS2Cost() { return s2Cost; }
 

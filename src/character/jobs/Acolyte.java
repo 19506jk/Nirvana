@@ -18,8 +18,6 @@ public class Acolyte extends Job{
         s2Type = "buff";
         s2Info = "Recovers 20 HP";
         s2Cost = 15;
-
-        passive = "none";
     }
 
     public String skill1(Obj c, Player p) {
