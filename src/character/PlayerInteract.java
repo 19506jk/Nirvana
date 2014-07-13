@@ -55,8 +55,6 @@ class PlayerInteract extends Interaction {
 
     public String getS2Info() { return job.getS2Info(); }
 
-    public String getPassive() { return job.getPassive(); }
-
     public int getS1Cost() { return job.getS1Cost(); }
 
     public int getS2Cost() { return job.getS2Cost(); }

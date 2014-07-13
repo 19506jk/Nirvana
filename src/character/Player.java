@@ -209,8 +209,6 @@ public class Player implements Obj {
 
     public String getS2Info() { return action.getS2Info(); }
 
-    public String getPassive() { return action.getPassive(); }
-
     public int getS1Cost() { return action.getS1Cost(); }
 
     public int getS2Cost() { return action.getS2Cost(); }
@@ -249,8 +247,6 @@ public class Player implements Obj {
     public void listSkills() {
         System.out.println("Skills:");
         System.out.println("-------------------------------------");
-        System.out.println("Passive: " + getPassive());
-        System.out.println();
         System.out.println("1. " + getS1());
         System.out.println("Type: " + getS1Type());
         System.out.println("MP Cost: " + getS1Cost());
