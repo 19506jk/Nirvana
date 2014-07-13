@@ -17,8 +17,6 @@ public class Swordsman extends Job{
         s2Type = "buff";
         s2Info = "Focus in the battle, increases attack by 10 for 5 rounds";
         s2Cost = 15;
-
-        passive = "none";
     }
 
     public String skill1(Obj c, Player p) {
