@@ -72,7 +72,6 @@ public class MobInteract extends Interaction {
 			else
 			{
 				count++;
-				continue;
 			}	
 		}
 	}
@@ -81,10 +80,6 @@ public class MobInteract extends Interaction {
 		Enemy enemy = (Enemy) o;
 		Player player = (Player) (floor.scanPlayer(pr, pc));
         int chance = (int) (Math.random() * 3);
-
-        if ("rogue".equals(player.getJob())) {
-            chance = (int) (Math.random() * 4);
-        }
 
 		if (chance == 0)
 		{
