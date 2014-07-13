@@ -6,7 +6,6 @@
     - Add AOE skills
 - Implement Inventory System
     - Add equipments
-    - Rework potion (Currently disabled in game)
     - Add some in-game items
 - **Floor rework**
     - Basic architecture is done
