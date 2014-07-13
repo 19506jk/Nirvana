@@ -116,6 +116,7 @@ public class App {
 			}
 			else if ("town".equals(cmd)){
 				MainInteraction.visitShop();
+                pFloor.changemsg("Player just visited town.");
 			}
 
             else if ("s1".equals(cmd)) {

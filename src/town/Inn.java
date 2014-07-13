@@ -8,11 +8,17 @@ public class Inn {
 		int cost = 20;
 		int maxHp = Player.getPlayer().getMaxHp();
 		int mpRegen = 50;
-		
-		Player.getPlayer().addHp(maxHp);
-		Player.getPlayer().changeMp(-mpRegen);
-		Player.getPlayer().changeGold(-cost);
-		
-		System.out.println("Hp and Mp restored.");
+
+        if (Player.getPlayer().getGold() >= cost) {
+            Player.getPlayer().addHp(maxHp);
+            Player.getPlayer().changeMp(-mpRegen);
+            Player.getPlayer().changeGold(-cost);
+            System.out.println("Hp and Mp restored.");
+        }
+
+        else {
+            System.out.println("Player does not have enough gold!");
+        }
+
 	}
 }
