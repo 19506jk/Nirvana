@@ -12,12 +12,16 @@ public class MainInteraction {
 		
 		System.out.println("Which shop would you like to visit?");
 		System.out.println("1. Attribute");
+		System.out.println("2. Inn");
 	
 		cmd = input.nextInt();
 		
 		switch (cmd){
 			case 1: 
 				Trainer.purchase();
+				break;
+			case 2:
+				Inn.purchase();
 				break;
 			default:
 				break;
