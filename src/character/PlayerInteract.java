@@ -193,9 +193,33 @@ class PlayerInteract extends Interaction {
 
 		}
 	}
-
-	public void usePotion(Player p) {} // Todo
-
+/*
+	public void usePotion(Obj o, String type) {
+		Player p = (Player) o;
+		
+    	int potionCount;
+    	int potionValue;
+    	if (type.equals("RH")) {
+            potionCount = p.red.getCount();
+            potionValue = p.red.getVal();
+    		if(potionCount>0){
+    			p.addHp(potionValue);
+    			potionCount--;
+    		}
+    		p.red.setCount(potionCount);
+           }
+     	  else{
+     		potionCount = p.blue.getCount();
+     		potionValue = p.blue.getVal(); 
+     		if(potionCount>0){
+     			p.changeMp(0-potionValue);
+     			potionCount--;
+     		}
+     		p.blue.setCount(potionCount);
+     	  }
+		
+	} // Todo
+*/
     public void castSkill(Player p, int choice) {
         String skillType;
 
