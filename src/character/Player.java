@@ -11,6 +11,9 @@ public class Player implements Obj {
 	Buff buff = null;
     PlayerInteract action = null;
 	static Player player = null;
+	
+	Potion red = new Potion("RH");
+	Potion blue = new Potion("RM");
 
 	private Player(int choice) {
 		gold = 0;
@@ -104,6 +107,7 @@ public class Player implements Obj {
     public void changeHp(int num) {
         hp -= num;
     }
+    
 
     public void changeMp(int num) {
         mp -= num;
@@ -141,6 +145,15 @@ public class Player implements Obj {
     public void updateMp() { mp = intel * 8; }
 
     public void setJob(int choice) { action.setJob(choice); }
+    
+    public void setPotion(String type, int num){
+    	 if (type.equals("RH")) {
+             red.setCount(num);
+         }
+    	 else{
+    		 blue.setCount(num);
+    	 }
+    }
 
 
     /*
@@ -212,6 +225,15 @@ public class Player implements Obj {
     public int getS1Cost() { return action.getS1Cost(); }
 
     public int getS2Cost() { return action.getS2Cost(); }
+    
+    public int getPotionCount(String type) {
+   	  if (type.equals("RH")) {
+          return red.getCount();
+         }
+   	  else{
+   		  return blue.getCount();
+   	  }
+    }
 
 
     /*
@@ -258,4 +280,9 @@ public class Player implements Obj {
         System.out.println(getS2Info());
         System.out.println("-------------------------------------");
     }
+    
+    public void drink(String type){
+    	action.usePotion(this, type);
+    }
+    
 }

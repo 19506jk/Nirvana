@@ -2,7 +2,10 @@ package cc3k;
 
 import character.*;
 import floor.*;
+import inv.Inventory;
+
 import java.util.*;
+
 import town.MainInteraction;
 
 
@@ -118,6 +121,10 @@ public class App {
 				MainInteraction.visitShop();
                 pFloor.changemsg("Player just visited town.");
 			}
+			else if ("inv".equals(cmd)) {
+			    Inventory.showItems();
+			    pFloor.changemsg("Player is looking through his bag.");
+			}
 
             else if ("s1".equals(cmd)) {
                 if ("attack".equals(player.getS1Type())) {
@@ -222,6 +229,8 @@ public class App {
 	private Player newGame(){
 
 		Player player = null;
+		
+		
 		String cmd;
 		boolean badInput;
 		for (int x = 0; x < 50; x++)
