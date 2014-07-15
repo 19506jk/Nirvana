@@ -28,9 +28,9 @@
 - input 'a' followed by direction <br>
 - Example: a no = attack north
 
-## Use potion
-~~- input 'u' followed by direction <br>~~
-~~- Example: u no = use the potion at north~~<br>
+## Use Inventory
+- input 'inv' to open the inventory <br>
+- input 1 or 2 to use either of the potions
 
 ## Visit town
 - input "town" to visit the town and modify player's attributes
