@@ -8,10 +8,6 @@ public class Elves implements Race {
 		return golds;
 	}
 
-	public int maxHp() {
-		return 140;
-	}
-
 	public void addbuffatk(Buff b, int amt) {
 		b.setAtk(Math.abs(amt));
 
