@@ -8,10 +8,6 @@ public class Dwarf implements Race {
 		return golds;
 	}
 
-	public int maxHp() {
-		return 100;
-	}
-
 	public void addbuffatk(Buff b, int amt) {
 		b.setAtk(amt);
 	}

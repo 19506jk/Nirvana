@@ -7,11 +7,11 @@ public class Inn {
 	public static void purchase(){
 		int cost = 20;
 		int maxHp = Player.getPlayer().getMaxHp();
-		int mpRegen = 50;
+		int mpRegen = Player.getPlayer().getMaxMp();
 
         if (Player.getPlayer().getGold() >= cost) {
             Player.getPlayer().addHp(maxHp);
-            Player.getPlayer().changeMp(-mpRegen);
+            Player.getPlayer().addMp(mpRegen);
             Player.getPlayer().changeGold(-cost);
             System.out.println("Hp and Mp restored.");
         }

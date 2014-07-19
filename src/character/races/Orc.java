@@ -28,10 +28,6 @@ public class Orc implements Race {
 		}
 	}
 
-	public int maxHp() {
-		return 180;
-	}
-
 	public void addbuffatk(Buff b, int amt) {
 		b.setAtk(amt);
 	}

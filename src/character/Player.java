@@ -4,7 +4,7 @@ import character.races.*;
 import floor.Floor;
 
 public class Player implements Obj {
-	int hp, atk, def, gold, mp;
+	int hp, atk, def, gold, mp, maxHp, maxMp;
     int str, dex, intel;
 	String races;
 	Race race = null;
@@ -66,7 +66,8 @@ public class Player implements Obj {
 
         updateAtk();
         updateDef();
-        updateMp();
+        updateMaxMp();
+        updateMaxHp();
 	}
 	
 	public static void resetPlayer() {
@@ -114,10 +115,23 @@ public class Player implements Obj {
     }
 
     public void addHp(int num) {
-        if (hp < race.maxHp()) {
+        if (hp < maxHp) {
+
             hp += num;
-            if (hp > race.maxHp()) {
-                hp = race.maxHp();
+
+            if (hp > maxHp) {
+                hp = maxHp;
+            }
+        }
+    }
+
+    public void addMp(int num) {
+        if (mp < maxMp) {
+
+            mp += num;
+
+            if (mp > maxMp) {
+                mp = maxMp;
             }
         }
     }
@@ -138,7 +152,13 @@ public class Player implements Obj {
         def = (int) Math.round(dex * Math.pow(1.03, dex));
     }
 
-    public void updateMp() { mp = intel * 8; }
+    public void updateMaxMp() {
+        mp = maxMp = intel * 8;
+    }
+
+    public void updateMaxHp() {
+        hp = maxHp = str * 8;
+    }
 
     public void setJob(int choice) { action.setJob(choice); }
 
@@ -177,7 +197,9 @@ public class Player implements Obj {
 
 	public int getHp() { return hp; }
 
-    public int getMaxHp() { return race.maxHp(); }
+    public int getMaxHp() { return maxHp; }
+
+    public int getMaxMp() { return maxMp; }
 
     public int getMp() { return mp; }
 
