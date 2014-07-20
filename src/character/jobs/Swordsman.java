@@ -28,7 +28,7 @@ public class Swordsman extends Job{
         float enemyDef = enemy.getDef();
         float playerAtk = p.getAtk();
 
-        p.changeMp(s1Cost);
+        p.subMp(s1Cost);
         int damage = (int) Math.ceil(((100 / (100 + enemyDef))) * playerAtk);
         enemy.changeHp(damage);
         int stunTimer = enemy.checkBuffTimer("stun");
@@ -59,7 +59,7 @@ public class Swordsman extends Job{
             return "Player does not have enough MP. ";
         }
 
-        p.changeMp(s2Cost);
+        p.subMp(s2Cost);
         p.changeBuff("atk", 5, 10);
         return "Player used " + s2 + ", attack is increased by 10 for 5 rounds. ";
     }
