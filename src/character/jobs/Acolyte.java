@@ -30,7 +30,7 @@ public class Acolyte extends Job{
 
         int damage = (int) (Math.ceil(((100 / (100 + enemyDef))) * p.getInt()) * 1.5);
         enemy.changeHp(damage);
-        p.changeMp(s1Cost);
+        p.subMp(s1Cost);
 
         return "Player used " + s1 + " on " + enemy.getName() + "(" + enemy.getHP() + ")" + " and dealt " + damage + " damage. ";
     }
@@ -51,7 +51,7 @@ public class Acolyte extends Job{
 
         int healAmt = (int)(p.getInt() * 1.5);
         p.addHp(healAmt);
-        p.changeMp(s2Cost);
+        p.subMp(s2Cost);
         return "Player used " + s2 + " and recovered " + healAmt + " HP. ";
     }
 }

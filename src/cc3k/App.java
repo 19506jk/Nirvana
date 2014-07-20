@@ -1,8 +1,11 @@
 package cc3k;
 
 import character.*;
+import character.equipment.EquipStatus;
 import floor.*;
+
 import java.util.*;
+
 import town.MainInteraction;
 
 
@@ -157,6 +160,9 @@ public class App {
 				else
 					player.attack(direc);
 			}
+			else if ("equip".equals(cmd)){
+				player.equipMenu();
+			}
 			else{
 				if(direcTrap(cmd)){
 					int r = player.getpr();
@@ -292,6 +298,9 @@ public class App {
             }
         }
 
+        //Initiate Equipment system
+        player.setEquipStatus(EquipStatus.getEquipStatus());
+        
 		level = 1;
 		pFloor = Floor.getInst(); 
 		pFloor.spawn();

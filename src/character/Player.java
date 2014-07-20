@@ -1,5 +1,6 @@
 package character;
 
+import character.equipment.EquipStatus;
 import character.races.*;
 import floor.Floor;
 
@@ -10,6 +11,7 @@ public class Player implements Obj {
 	Race race = null;
 	Buff buff = null;
     PlayerInteract action = null;
+    EquipStatus equips;
 	static Player player = null;
 
 	private Player(int choice) {
@@ -102,11 +104,11 @@ public class Player implements Obj {
         buff.setEffects(name, amt);
     }
 
-    public void changeHp(int num) {
+    public void subHp(int num) {
         hp -= num;
     }
 
-    public void changeMp(int num) {
+    public void subMp(int num) {
         mp -= num;
 
         if (mp < 0) {
@@ -188,11 +190,11 @@ public class Player implements Obj {
     }
 
 	public int getAtk() {
-		return atk + buff.getAtk();
+		return atk + buff.getAtk() + equips.getEquipAtk();
 	}
 
 	public int getDef() {
-		return def + buff.getDef();
+		return def + buff.getDef() + equips.getEquipDef();
 	}
 
 	public int getHp() { return hp; }
@@ -279,5 +281,13 @@ public class Player implements Obj {
         System.out.println("MP Cost: " + getS2Cost());
         System.out.println(getS2Info());
         System.out.println("-------------------------------------");
+    }
+    
+    public void setEquipStatus(EquipStatus status){
+    	equips = status;
+    }
+    
+    public void equipMenu(){
+    	equips.equipMainMenu();
     }
 }

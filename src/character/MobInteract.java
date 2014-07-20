@@ -86,7 +86,7 @@ public class MobInteract extends Interaction {
 			float enemyatk = enemy.getAtk();
 			float playerdef = player.getDef();
 			int damage = (int) (Math.ceil(((100 / (100 + playerdef))) * enemyatk));
-			player.changeHp(damage);
+			player.subHp(damage);
 			String msg = "";
 			msg += enemy.getRep();	
 			msg += " deals " + damage + " to PC. ";

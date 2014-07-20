@@ -31,7 +31,7 @@ public class Rogue extends Job {
 
         int damage = (int) Math.ceil(((100 / (100 + enemyDef))) * playerAtk);
         enemy.changeHp(damage * 2);
-        p.changeMp(s1Cost);
+        p.subMp(s1Cost);
 
         return "Player used " + s1 + " on " + enemy.getName() + "(" + enemy.getHP() + ")" + " and dealt " + damage * 2 + " damage. ";
     }
@@ -48,7 +48,7 @@ public class Rogue extends Job {
         int damage = (int) Math.ceil(((100 / (100 + enemyDef))) * (playerAtk + 15));
         enemy.changeHp(damage);
         enemy.setDeBuff("poison", 3);
-        p.changeMp(s2Cost);
+        p.subMp(s2Cost);
 
         return "Player used " + s2 + " on " + enemy.getName() + "(" + enemy.getHP() + ")" + " and dealt " + damage + " damage. ";
 
