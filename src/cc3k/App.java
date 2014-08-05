@@ -3,7 +3,7 @@ package cc3k;
 import character.*;
 import character.equipment.EquipStatus;
 import floor.*;
-
+import inv.*;
 import java.util.*;
 
 import town.MainInteraction;
@@ -162,6 +162,10 @@ public class App {
 			}
 			else if ("equip".equals(cmd)){
 				player.equipMenu();
+			}
+			else if ("inv".equals(cmd)){
+				ItemInteract.showItems();
+				pFloor.changemsg("Player just visited town.");
 			}
 			else{
 				if(direcTrap(cmd)){
