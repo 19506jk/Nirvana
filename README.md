@@ -37,4 +37,8 @@
 - input 's1' followed by direction to cast skill 1, etc<br><br>
 
 ## Equips
-- input 'equip' to use the equipment system for player
+- input 'equip' to use the equipment system for player<br>
+
+## Potions
+- input 'inv' to use the inventory system for player<br>
+- On inventory screen, input 1,2,3 to use the corresponding potion. Input 87 for extra potions.
