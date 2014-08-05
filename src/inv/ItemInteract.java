@@ -49,9 +49,9 @@ public class ItemInteract {
 		Potion pot1 = (Potion) temp;
 
 		if (temp.getCount() > 0) {
-			if (pot1.getName() == "RH")
+			if (pot1.getName().equals("RH"))
 				p.addHp(pot1.getVal());
-			else if (pot1.getName() == "RH")
+			else if (pot1.getName().equals("RH"))
 				p.addMp(pot1.getVal());
 			else{
 				p.addHp(pot1.getVal());
