@@ -32,6 +32,7 @@ public class Potion extends Item {
 	/*
 	 * Getters
 	 */
+
 	public PotionType getEffect() {
 		return effect;
 	}
