@@ -51,7 +51,7 @@ public class ItemInteract {
 		if (temp.getCount() > 0) {
 			if (pot1.getName().equals("RH"))
 				p.addHp(pot1.getVal());
-			else if (pot1.getName().equals("RH"))
+			else if (pot1.getName().equals("RM"))
 				p.addMp(pot1.getVal());
 			else{
 				p.addHp(pot1.getVal());
