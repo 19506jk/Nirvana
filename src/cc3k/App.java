@@ -10,8 +10,7 @@ import town.MainInteraction;
 
 
 /*
- * CC3K Ver 0.1.2
- * Danny & Louis version
+ * Nirvana Ver 0.1.3
  * This is the main App class, still under construction
  */
 public class App {
@@ -237,7 +236,7 @@ public class App {
 		for (int x = 0; x < 50; x++)
 			System.out.println('\n');
 
-		System.out.println("Welcome to CC3K ver 0.1.2");
+		System.out.println("Welcome to Nirvana ver 0.1.3");
 		System.out.println("Choose your race:");
 		System.out.println("Human(h), Elves(e), Dwarf(d), Orc(o)");
 		System.out.println();
