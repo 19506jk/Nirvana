@@ -16,5 +16,5 @@ public interface GamePlayCommon {
 	//Each Grid has resolution 32x32;
 	public static final int CS = 32;
 	
-	public void draw(Graphics g);
+	public void draw(Graphics g, int offsetX, int offsetY);
 }

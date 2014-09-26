@@ -32,18 +32,27 @@ public class EnemyDisplay implements GamePlayCommon {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, int offsetX, int offsetY) {
 		Cell[][] layout = Floor.getInst().getLayout();
 		
-		for (int r = 0; r < ROW; r++){
-			for (int c = 0; c < COL; c++){
+		//Get current location of the map in the general larger map
+		int firstTileX = -offsetX/32;
+		int lastTileX = firstTileX + 20 + 1;
+		lastTileX = Math.min(lastTileX, 79);
+		
+		int firstTileY = -offsetY/32;
+		int lastTileY = firstTileY + 15 + 1;
+		lastTileY = Math.min(lastTileY, 25);
+		
+		for (int r = firstTileY; r < lastTileY; r++){
+			for (int c = firstTileX; c < lastTileX; c++){
 				if (layout[r][c].getOnCell() != null && layout[r][c].getOnCell().getType() == 1){
 					Enemy enemy = (Enemy) layout[r][c].getOnCell();
 					g.drawImage(enemyImage, 
-							c * CS, 
-							r * CS,
-							c * CS + CS, 
-							r * CS + CS, 
+							c * CS + offsetX, 
+							r * CS + offsetY,
+							c * CS + CS + offsetX, 
+							r * CS + CS + offsetY, 
 							EnemyPixelCoordFinder.getCoordOfMobType(enemy.getMobType()).getX() * CS,
 							EnemyPixelCoordFinder.getCoordOfMobType(enemy.getMobType()).getY() * CS,
 							EnemyPixelCoordFinder.getCoordOfMobType(enemy.getMobType()).getX() * CS + CS,
