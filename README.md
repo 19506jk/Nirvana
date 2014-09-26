@@ -12,7 +12,7 @@ We have re-implemented the game with Java and added many new features.
     - Add more in-game items
 - Floor rework
 - Race rework
-- **GUI** (see [graphics_infra branch](https://github.com/19506jk/CC3K-new/tree/graphics_infra))
+- **GUI**
    - Resource scavenging
    - Map Scrolling
    - Character Moving Animation
