@@ -29,13 +29,25 @@ public class FloorDisplay implements GamePlayCommon {
 	}
 	
 	@Override
-	public void draw(Graphics g){
+	public void draw(Graphics g, int offsetX, int offsetY){
 		Cell[][] layout = Floor.getInst().getLayout();
 		
 		//Note here r is the row number, which corresponds to y coordinate, and c is column number, which corresponds to x
 		Square content;
-		for (int r = 0; r < ROW; r++){
-			for (int c = 0; c < COL; c++){
+		// Get current location of the map in the general larger map
+		
+		int firstTileX = -offsetX / 32;
+		int lastTileX = firstTileX + 20 + 1;
+		lastTileX = Math.min(lastTileX, 79);
+
+		int firstTileY = -offsetY / 32;
+		int lastTileY = firstTileY + 15 + 1;
+		lastTileY = Math.min(lastTileY, 25);
+		
+		System.out.println(firstTileX + "," + lastTileX + "," + firstTileY + "," + lastTileY);
+
+		for (int r = firstTileY; r < lastTileY; r++) {
+			for (int c = firstTileX; c < lastTileX; c++) {
 				Image tempImage;
 				content = layout[r][c].getType();
 				if (content.equals(Square.DOOR)){
@@ -48,10 +60,10 @@ public class FloorDisplay implements GamePlayCommon {
 					tempImage = floorImage;
 				}
 				g.drawImage(tempImage, 
-								c * CS, 
-								r * CS,
-								c * CS + CS, 
-								r * CS + CS, 
+								c * CS + offsetX, 
+								r * CS + offsetY,
+								c * CS + CS + offsetX, 
+								r * CS + CS + offsetY, 
 								TilePixelCoordFinder.getCoordOfSquare(content).getX() * CS,
 								TilePixelCoordFinder.getCoordOfSquare(content).getY() * CS,
 								TilePixelCoordFinder.getCoordOfSquare(content).getX() * CS + CS,

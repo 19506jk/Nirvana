@@ -24,14 +24,17 @@ public class PlayerDisplay implements GamePlayCommon {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, int offsetX, int offsetY) {
 		Player player = Player.getPlayer();
+		
+		int c = player.getpc();
+		int r = player.getpr();
 
 		g.drawImage(playerImage, 
-					player.getpc()*CS,
-					player.getpr()*CS, 
-					player.getpc()*CS + CS, 
-					player.getpr()*CS + CS, 
+					c * CS + offsetX, 
+					r * CS + offsetY,
+					c * CS + CS + offsetX, 
+					r * CS + CS + offsetY, 
 					playerImageCoord.getX()*CS, 
 					playerImageCoord.getY()*CS, 
 					playerImageCoord.getX()*CS + CS, 
