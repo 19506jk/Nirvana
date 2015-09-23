@@ -3,21 +3,6 @@ This game is based on an assignment from CS246 in University of Waterloo.<br>
 The original game's name was called Chamber Crawler 3000 and it was written in C++.<br>
 We have re-implemented the game with Java and added many new features.
 
-# Current Progress
-
-- Improve Class System
-    - Add range classes (i.e Mages, Archer)
-    - Add area skills
-- Improve Inventory System
-    - Add more in-game items
-- Floor rework
-- Race rework
-- **GUI**
-   - Resource scavenging
-   - Map Scrolling
-   - Character Moving Animation
-   - Implement new command system
-
 #Change Log
 
 ### Version 0.1.3
